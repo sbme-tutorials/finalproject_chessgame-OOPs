@@ -11,7 +11,6 @@ public class Frame extends JFrame {
 		this.setTitle("chessGame");
 		this.setResizable(false);
 		this.setSize(800, 550);
-		//this.setDefaultLookAndFeelDecorated(true);
 
 		
 		ImageIcon image = new ImageIcon("logo.jpg");
