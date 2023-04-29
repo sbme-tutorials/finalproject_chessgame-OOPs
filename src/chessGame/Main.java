@@ -3,7 +3,7 @@ package chessGame;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public class Main {
 
