@@ -18,9 +18,9 @@ public class Frame extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("chessGame");
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.setSize(800, 550);
-		this.setLayout(null);
+		//this.setLayout(null);
 		this.getContentPane().setBackground(new Color(0x7ba7ed));
 		
 		ImageIcon image = new ImageIcon("logo.jpg");
