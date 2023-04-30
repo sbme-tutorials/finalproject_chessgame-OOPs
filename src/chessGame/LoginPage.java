@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 
 public class LoginPage implements ActionListener {
-    JFrame frame = new JFrame();
+    Frame frame = new Frame();
     JButton loginButton = new JButton("login");
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
@@ -42,11 +42,7 @@ public class LoginPage implements ActionListener {
         frame.add(loginButton);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Chess Game");
-        frame.setVisible(true);
-        frame.setSize(500,500);
         frame.setResizable(false);
-        frame.setLayout(null);
     }
 
     public void actionPerformed(ActionEvent e){
