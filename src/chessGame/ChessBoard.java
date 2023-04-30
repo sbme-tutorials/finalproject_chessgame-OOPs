@@ -35,7 +35,7 @@ public class ChessBoard {
             }
         }
     }
-
+    
     private void addPieces() {
         // Add the white pieces
         //حاولت احط القطع في النص ماحصلش تغيير بس خلوا الكود ممكن نحتاجه
@@ -65,10 +65,10 @@ public class ChessBoard {
         }
     }
 
-
     public JPanel getChessBoard() {
         return chessBoard;
-    }}
+    }
+}
     /**public static void main(String[] args) {
         // Create the frame
         JFrame frame = new JFrame("Chess Game");
@@ -86,5 +86,5 @@ public class ChessBoard {
     }
 
 }*/
-    // i diddnt delet the main here for test purposes
+    // i didn't delete the main here for test purposes
 

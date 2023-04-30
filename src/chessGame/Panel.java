@@ -16,12 +16,11 @@ public class Panel extends JPanel{
 }
 
 class Label extends JLabel{
-	{
-		
+	{		
 		this.setFont(new Font("SANS_SERIF", Font.BOLD, 24));
 		this.setForeground(Color.white);
 		this.setBackground(Color.WHITE);
 		
 	}
-	
+
 }

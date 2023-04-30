@@ -20,6 +20,7 @@ public class Frame extends JFrame {
 		this.setPreferredSize(new Dimension(690, 690));
 		this.setLayout(null);
 		this.getContentPane().setBackground(new Color(0xadadad));
+		this.setLocation(690/2-this.getSize().width/2,0);
 		
 		ImageIcon image = new ImageIcon("logo.jpg");
 		this.setIconImage(image.getImage());
