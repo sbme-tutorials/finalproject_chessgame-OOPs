@@ -82,9 +82,9 @@ public class GameView {
             labela.setBounds(80, 560, 30, 30);
             labelb.setBounds(140, 560, 30, 30);
             labelc.setBounds(205, 560, 30, 30);
-            labeld.setBounds(260, 560, 30, 30);
-            labele.setBounds(325, 560, 30, 30);
-            labelf.setBounds(385, 560, 30, 30);
+            labeld.setBounds(270, 560, 30, 30);
+            labele.setBounds(335, 560, 30, 30);
+            labelf.setBounds(395, 560, 30, 30);
             labelg.setBounds(450, 560, 30, 30);
             labelh.setBounds(515, 560, 30, 30);
 

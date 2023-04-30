@@ -6,7 +6,6 @@ public class Main {
 
 		new GameView().main(args);
 
-
 	}
 
 }
