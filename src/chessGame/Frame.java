@@ -15,11 +15,11 @@ public class Frame extends JFrame {
 	Frame(){
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("chessGame");
+		this.setTitle("ChessGame");
 		this.setResizable(false);
-		this.setPreferredSize(new Dimension(800, 900));
+		this.setPreferredSize(new Dimension(690, 690));
 		this.setLayout(null);
-		this.getContentPane().setBackground(Color.WHITE);
+		this.getContentPane().setBackground(new Color(0xadadad));
 		
 		ImageIcon image = new ImageIcon("logo.jpg");
 		this.setIconImage(image.getImage());
