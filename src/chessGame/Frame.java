@@ -21,7 +21,7 @@ public class Frame extends JFrame {
 		this.setResizable(false);
 		this.setSize(800, 550);
 		//this.setLayout(null);
-		this.getContentPane().setBackground(new Color(0x7ba7ed));
+		this.getContentPane().setBackground(new Color(0xadadad));
 		
 		ImageIcon image = new ImageIcon("logo.jpg");
 		this.setIconImage(image.getImage());
