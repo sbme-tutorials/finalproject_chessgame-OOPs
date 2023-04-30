@@ -13,11 +13,11 @@ public class LoginPage implements ActionListener {
     JButton loginButton = new JButton("login");
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
-    JLabel userIDLabel = new JLabel("userID:");
+    JLabel userIDLabel = new JLabel("userID");
     JLabel userPasswordLabel = new JLabel("Password:");
     JLabel messageLabel = new JLabel("THIS IS A TEXT");
     HashMap<String,String> logininfo = new HashMap<String,String>();
-
+    
     LoginPage(HashMap<String,String> logininfoOriginal ){
         logininfo = logininfoOriginal ;
 
@@ -33,16 +33,16 @@ public class LoginPage implements ActionListener {
         loginButton.setBounds(125,200,100,25);
         loginButton.setFocusable(false);
         loginButton.addActionListener(this);
-
+        
         frame.add(userPasswordLabel);
         frame.add(messageLabel);
         frame.add(userIDLabel);
         frame.add(userPasswordField);
         frame.add(userIDField);
         frame.add(loginButton);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        
+        frame.setDefaultCloseOperation(Frame.EXIT_ON_CLOSE);
+        //frame.setResizable(false);
     }
 
     public void actionPerformed(ActionEvent e){

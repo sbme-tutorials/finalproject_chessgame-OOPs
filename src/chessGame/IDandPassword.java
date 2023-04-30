@@ -7,6 +7,7 @@ public class IDandPassword {
 
     IDandPassword (){
         logininfo.put("eman","123456");
+        logininfo.put("nouran","123456");
 
     }
 

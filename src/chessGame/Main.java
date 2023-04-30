@@ -4,11 +4,11 @@ public class Main {
 
 	public static void main(String[] args){
 
-		new GameView().main(args);
+		//new GameView().main(args);
 		
-		//IDandPassword idandpassword = new IDandPassword();
+		IDandPassword idandpassword = new IDandPassword();
 
-        //LoginPage loginpage  = new LoginPage(idandpassword.getLoginInfo());
+        new LoginPage(idandpassword.getLoginInfo());
 
 		
 	}
