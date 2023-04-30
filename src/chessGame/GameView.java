@@ -3,8 +3,9 @@ package chessGame;
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.border.*;
 public class GameView {
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
             JTextField player1, player2, score1, score2;
             JLabel label_1, label_2, label3, label4, label5, label6, label7, label8, labela, labelb, labelc, labeld, labele, labelf, labelg, labelh;
@@ -25,16 +26,22 @@ public class GameView {
             label2.setForeground(Color.WHITE);
             frame.add(timer1);
             timer1.setBounds(450, 20, 100, 50);
+
             timer1.add(label1);
             frame.add(timer2);
             timer2.setBounds(450, 635, 100, 50);
             timer2.add(label2);
 
+
             //Aly's part
             player1 = new JTextField("   Player1", 10);
+            player1.setBorder(new RoundBorder(15));
             player2 = new JTextField("   Player2", 10);
+            player2.setBorder(new RoundBorder(15));
             score1 = new JTextField("             0", 2);
+            score1.setBorder(new RoundBorder(15));
             score2 = new JTextField("             0", 2);
+            score2.setBorder(new RoundBorder(15));
             label_1 = new JLabel("1");
             label_2 = new JLabel("2");
             label3 = new JLabel("3");
@@ -104,7 +111,37 @@ public class GameView {
             frame.pack();
             frame.setVisible(true);
         }
-    }
+
+
+
+
+
+
+        //this is a function for just the graphical interface
+        class RoundBorder implements Border {
+
+                private int radius;
+
+                public RoundBorder(int radius) {
+                        this.radius = radius;
+                }
+
+                @Override
+                public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                        g.setColor(Color.BLACK);
+                        g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+                }
+
+                @Override
+                public Insets getBorderInsets(Component c) {
+                        return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
+                }
+
+                @Override
+                public boolean isBorderOpaque() {
+                        return true;
+                }
+    }}
 
 
 

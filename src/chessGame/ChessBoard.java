@@ -1,90 +1,149 @@
 package chessGame;
-
+import Piece.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class ChessBoard {
     public JPanel chessBoard;
-    private JPanel[][] squares = new JPanel[8][8];
+    private Square[][] tile = new Square[8][8];
+    //JButton fromButton = null;
+    //JButton toButton = null;
 
     public ChessBoard() {
         createBoard();
-        addPieces();
+        //addPieces();
+        showPieces();
+        //movePiece(fromButton,toButton);
+
     }
 
     private void createBoard() {
         // Create the chessboard panel with a GridLayout
         chessBoard = new JPanel(new GridLayout(8, 8));
 
-        // Create the square panels and add them to the chessboard panel
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                squares[i][j] = new JPanel();
-                chessBoard.add(squares[i][j]);
+        // 64 tiles of class square wich is extendend from Jpanel
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                tile[i][j] = new Square(i, j);
+                chessBoard.add(tile[i][j]);
             }
         }
 
-        // Set the background color of the square panels
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if ((i + j) % 2 == 0) {
-                    squares[i][j].setBackground(new Color(117,22,63));
-                } else {
-                    squares[i][j].setBackground(new Color(255,145,127));
-                }
-            }
-        }
-    }
+        // Add ActionListener to each button
+       /* for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                JButton button = tile[i][j];
 
-    private void addPieces() {
-        // Add the white pieces
-        //حاولت احط القطع في النص ماحصلش تغيير بس خلوا الكود ممكن نحتاجه
-        squares[0][0].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wR.png")), JLabel.CENTER);
-        squares[0][1].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wH.png")));
-        squares[0][2].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wB.png")));
-        squares[0][3].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wQ.png")));
-        squares[0][4].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wK.png")));
-        squares[0][5].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wB.png")));
-        squares[0][6].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wH.png")));
-        squares[0][7].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wR.png")));
-        for (int i = 0; i < 8; i++) {
-            squares[1][i].add(new JLabel(new ImageIcon("1_deliverabless/Piece/wP.png")));
+                button.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (fromButton == null) {
+                            // First button clicked, set it as the 'fromButton'
+                            fromButton = button;
+                            fromButton.setBorder(BorderFactory.createLineBorder(Color.RED));
+                        } else {
+                            // Second button clicked, set it as the 'toButton' and call 'movePiece'
+                            toButton = button;
+                            movePiece(fromButton, toButton);
+                            fromButton.setBorder(null);
+                            fromButton = null;
+                            toButton = null;
+                        }
+                    }
+
+                                            @Override
+                                            public void mousePressed(MouseEvent e) {
+
+                                            }
+
+                                            @Override
+                                            public void mouseReleased(MouseEvent e) {
+
+                                            }
+
+                                            @Override
+                                            public void mouseEntered(MouseEvent e) {
+
+                                            }
+
+                                            @Override
+                                            public void mouseExited(MouseEvent e) {
+
+                                            }
+                                        }
+                );
+                chessBoard.add(button);
+            }*/
         }
 
-        // Add the black pieces
-        squares[7][0].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bR.png")));
-        squares[7][1].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bH.png")));
-        squares[7][2].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bB.png")));
-        squares[7][3].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bQ.png")));
-        squares[7][4].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bK.png")));
-        squares[7][5].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bB.png")));
-        squares[7][6].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bH.png")));
-        squares[7][7].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bR.png")));
-        for (int i = 0; i < 8; i++) {
-            squares[6][i].add(new JLabel(new ImageIcon("1_deliverabless/Piece/bP.png")));
-        }
+
+
+
+    void showPieces() {
+        // knight done
+        Knight bn1 = new Knight(Color.BLACK, 0, 1);
+        tile[0][1].setPiece(bn1);
+        Knight bn2 = new Knight(Color.BLACK, 0, 6);
+        tile[0][6].setPiece(bn2);
+        Knight wn1 = new Knight(Color.WHITE, 7, 1);
+        tile[7][1].setPiece(wn1);
+        Knight wn2 = new Knight(Color.WHITE, 7, 6);
+        tile[7][6].setPiece(wn2);
+
     }
 
 
     public JPanel getChessBoard() {
         return chessBoard;
-    }}
-    /**public static void main(String[] args) {
-        // Create the frame
-        JFrame frame = new JFrame("Chess Game");
-        frame.setSize(500, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Create the chessboard
-        ChessBoard chessBoard = new ChessBoard();
-
-        // Add the chessboard to the frame
-        frame.getContentPane().add(chessBoard.getChessBoard());
-
-        // Make the frame visible
-        frame.setVisible(true);
     }
 
-}*/
-    // i diddnt delet the main here for test purposes
+    public void movePiece(JButton fromButton, JButton toButton) {
+        // Get the icon of the piece from the 'fromButton'
+        Icon pieceIcon = fromButton.getIcon();
+        // Set the icon of the 'toButton' to the piece icon
+        toButton.setIcon(pieceIcon);
+        // Set the icon of the 'fromButton' to null to remove the piece icon
+        fromButton.setIcon(null);
+    }
 
+
+    }
+
+
+
+
+
+
+    /*private void addPieces() {
+        // Add the white pieces
+        //حاولت احط القطع في النص ماحصلش تغيير بس خلوا الكود ممكن نحتاجه
+        tile[0][2].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wB.png")));
+        tile[0][3].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wQ.png")));
+        tile[0][4].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wK.png")));
+        tile[0][5].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wB.png")));
+        tile[0][7].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wR.png")));
+        for (int i = 0; i < 8; i++) {
+            tile[1][i].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wP.png")));
+        }
+
+        // Add the black pieces
+        tile[7][0].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bR.png")));
+
+        tile[7][2].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bB.png")));
+        tile[7][3].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bQ.png")));
+        tile[7][4].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bK.png")));
+        tile[7][5].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bB.png")));
+        ;
+        tile[7][7].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bR.png")));
+        for (int i = 0; i < 8; i++) {
+            tile[6][i].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bP.png")));
+        }
+
+    }*/
