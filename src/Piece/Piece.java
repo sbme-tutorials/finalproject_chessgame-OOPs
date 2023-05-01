@@ -1,9 +1,10 @@
 package Piece;
-
 import java.awt.*;
 
-public abstract class Piece {
-    public enum PieceType{
+public abstract class Piece
+{
+    public enum Type
+    {
         Pawn,
         Knight,
         Queen,
@@ -12,10 +13,7 @@ public abstract class Piece {
         King
     }
     public Color color; int x,y ;
-
-    private PieceType type;
-
-
+    private Type type;
     public Piece(Color color, int x, int y) // CONSTRUCTOR
     {
         this.color = color;
@@ -43,7 +41,7 @@ public abstract class Piece {
     public Color getColor() {
         return color;
     }
-    public PieceType getType() {
+    public Type getType() {
         return type;
     }
 

@@ -1,12 +1,12 @@
 package chessGame;
-
 import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.border.*;
-public class GameView {
-    public void main(String[] args) {
 
+public class GameView
+{
+    public void main(String[] args)
+    {
             JTextField player1, player2, score1, score2;
             JLabel label_1, label_2, label3, label4, label5, label6, label7, label8, labela, labelb, labelc, labeld, labele, labelf, labelg, labelh;
 
@@ -106,6 +106,7 @@ public class GameView {
             chessPanel.setPreferredSize(new Dimension(500, 500));
             chessPanel.setBounds(50, 100, 500, 500);
             frame.getContentPane().add(chessPanel);
+
 
 
             frame.pack();

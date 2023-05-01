@@ -6,13 +6,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class ChessBoard {
-    public JPanel chessBoard;
+public class ChessBoard
+{
+    public static JPanel chessBoard;
     private Square[][] tile = new Square[8][8];
     //JButton fromButton = null;
     //JButton toButton = null;
 
-    public ChessBoard() {
+    public ChessBoard()
+    {
         createBoard();
         //addPieces();
         showPieces();
@@ -20,7 +22,8 @@ public class ChessBoard {
 
     }
 
-    private void createBoard() {
+    private void createBoard()
+    {
         // Create the chessboard panel with a GridLayout
         chessBoard = new JPanel(new GridLayout(8, 8));
 
@@ -100,7 +103,8 @@ public class ChessBoard {
     }
 
 
-    public JPanel getChessBoard() {
+    public static JPanel getChessBoard() {
+
         return chessBoard;
     }
 
