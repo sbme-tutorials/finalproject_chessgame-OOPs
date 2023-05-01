@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 
 public class LoginPage implements ActionListener {
+	LoginPage(){}
     Frame frame = new Frame();
     JButton loginButton = new JButton("login");
     JTextField userIDField = new JTextField();
