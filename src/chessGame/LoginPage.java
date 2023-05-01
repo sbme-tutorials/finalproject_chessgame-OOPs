@@ -41,8 +41,6 @@ public class LoginPage implements ActionListener {
         frame.add(userIDField);
         frame.add(loginButton);
         
-        frame.setDefaultCloseOperation(Frame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
     }
 
     public void actionPerformed(ActionEvent e){

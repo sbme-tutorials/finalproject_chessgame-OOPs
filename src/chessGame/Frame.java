@@ -16,7 +16,6 @@ public class Frame extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("ChessGame");
-		this.setResizable(false);
 		this.setPreferredSize(new Dimension(690, 690));
 		this.setLayout(null);
 		this.getContentPane().setBackground(new Color(0x908e94));
