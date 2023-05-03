@@ -16,16 +16,17 @@ public class Frame extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("chessGame");
-		//this.setResizable(false);
-		//this.setSize(800, 550);
-		this.setPreferredSize(new Dimension(790, 790));
+
+		this.setSize(690, 790);
+		this.setPreferredSize(new Dimension(690,790));
 		this.setLayout(null);
-		this.getContentPane().setBackground(new Color(0x7ba7ed));
+		this.getContentPane().setBackground(new Color(0xadadad));
+
 
 		ImageIcon image = new ImageIcon("logo.jpg");
 		this.setIconImage(image.getImage());
 
-		/*
+		/* 
 		 * BufferedImage myImage = ImageIO.read(new File("back.jpg"));
 		 * this.setContentPane(new ImagePanel(myImage));
 		 */

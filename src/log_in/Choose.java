@@ -2,17 +2,15 @@ package log_in;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Font;
 
-public class Choose {
+public class Choose extends Frame{
     public static void Lastframe(){
 
-            JFrame frame = new JFrame("Label Example");
-            frame.setLayout(null);
+            JFrame frame = new JFrame();
 
-            //babel 1 pick a side !
+            //label 1 pick a side !
             JLabel label1 = new JLabel("Please pick a side");
-            label1.setFont(new Font("Pacifico", Font.PLAIN, 28));
+            label1.setFont(new Font("Arial", Font.PLAIN, 28));
             label1.setBounds(50, 0, 550, 100);
 
 //button1 pick white
@@ -34,7 +32,7 @@ public class Choose {
 
 //setting a timer
             JLabel label2 = new JLabel("Please set a timer");
-            label2.setFont(new Font("acifico", Font.PLAIN, 28));
+            label2.setFont(new Font("Arial", Font.PLAIN, 28));
             label2.setBounds(50, 300, 550, 100);
 
             MyButton min1 = new MyButton("01:00 min");
@@ -62,9 +60,12 @@ public class Choose {
 
 //start game button
             JButton start = new JButton("Start Game");
-            start.setBounds(250, 590, 300, 100);
-            start.setBackground(Color.GREEN);
-            //start.setForeground(Color.DARK_GRAY);
+
+            start.setBounds(250, 550, 200, 70);
+            start.setBackground(new Color(0x544894));
+            start.setForeground(Color.WHITE);
+            start.setFont(new Font("Arial", Font.BOLD, 28));
+
 
 
             frame.add(label1);
@@ -79,11 +80,19 @@ public class Choose {
             frame.add(min3);
             frame.add(min10);
             frame.add(min30);
-            frame.pack();
-            frame.setVisible(true);}
-//        public static void main(String[] args) {
-//            Lastframe();
-//        }
+            frame.setVisible(true);
+    		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    		frame.setTitle("chessGame");
+    		frame.setSize(690, 690);
+    		frame.setLayout(null);
+    		frame.getContentPane().setBackground(new Color(0xadadad));
+
+    		ImageIcon image = new ImageIcon("logo.jpg");
+    		frame.setIconImage(image.getImage());
+    }
+        public static void main(String[] args) {
+            Lastframe();
+        }
 // flaging main for test purposes
 
     }
