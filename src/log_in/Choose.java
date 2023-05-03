@@ -64,6 +64,7 @@ public class Choose {
             JButton start = new JButton("Start Game");
             start.setBounds(250, 590, 300, 100);
             start.setBackground(Color.GREEN);
+            //start.setForeground(Color.DARK_GRAY);
 
 
             frame.add(label1);

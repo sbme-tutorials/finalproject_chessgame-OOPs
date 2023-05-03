@@ -11,6 +11,7 @@ public class GameView
             JLabel label_1, label_2, label3, label4, label5, label6, label7, label8, labela, labelb, labelc, labeld, labele, labelf, labelg, labelh;
 
             Frame frame = new Frame();
+
             new Counter();
 
             //Nouran's part
@@ -103,7 +104,7 @@ public class GameView
             //Mina's part
             ChessBoard chessBoard1 = new ChessBoard();
             JPanel chessPanel = chessBoard1.getChessBoard();
-            chessPanel.setPreferredSize(new Dimension(500, 500));
+            chessPanel.setSize(500,500);
             chessPanel.setBounds(50, 100, 500, 500);
             frame.getContentPane().add(chessPanel);
 

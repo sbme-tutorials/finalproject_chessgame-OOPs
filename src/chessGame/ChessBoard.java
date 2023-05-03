@@ -4,22 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class ChessBoard
 {
     public static JPanel chessBoard;
     private Square[][] tile = new Square[8][8];
-    //JButton fromButton = null;
-    //JButton toButton = null;
+    Piece p = null;
+    Square fromButton = null,toButton = null;
 
     public ChessBoard()
     {
         createBoard();
-        //addPieces();
         showPieces();
-        //movePiece(fromButton,toButton);
-
     }
 
     private void createBoard()
@@ -32,122 +28,90 @@ public class ChessBoard
         {
             for (int j = 0; j < 8; j++)
             {
-                tile[i][j] = new Square(i, j);
+                tile[i][j] = new Square(i, j, p);
+                //======================================================================================================//
+                //adding mouse listeners for user interaction
+                tile[i][j].addMouseListener(new MouseAdapter()
+                {
+                    @Override
+                    public void mouseClicked(MouseEvent e)
+                    {
+                        Square clickedButton = (Square) e.getSource();
+                        if (fromButton == null )
+                        {
+                            // First click - set fromButton to the clicked button
+                            fromButton = clickedButton;
+                        }
+                        else
+                        {
+                            // Second click - set toButton to the clicked button and do something with the move
+
+                            if (clickedButton != fromButton )   // avoid double click
+                            {
+                                toButton = clickedButton;
+                                boolean isItValid = fromButton.getPiece().isValidMove(toButton.getMyX(), toButton.getMyY());
+                                  // the isValidMove function is the core of the logic and the rules behind the game
+                                if(isItValid)
+                                    movePiece(fromButton, toButton);
+                            }
+                            fromButton = null;
+                        }
+                    }
+                });
+                //===========================================================================================================//
                 chessBoard.add(tile[i][j]);
             }
         }
-
-        // Add ActionListener to each button
-       /* for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                JButton button = tile[i][j];
-
-                button.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        if (fromButton == null) {
-                            // First button clicked, set it as the 'fromButton'
-                            fromButton = button;
-                            fromButton.setBorder(BorderFactory.createLineBorder(Color.RED));
-                        } else {
-                            // Second button clicked, set it as the 'toButton' and call 'movePiece'
-                            toButton = button;
-                            movePiece(fromButton, toButton);
-                            fromButton.setBorder(null);
-                            fromButton = null;
-                            toButton = null;
-                        }
-                    }
-
-                                            @Override
-                                            public void mousePressed(MouseEvent e) {
-
-                                            }
-
-                                            @Override
-                                            public void mouseReleased(MouseEvent e) {
-
-                                            }
-
-                                            @Override
-                                            public void mouseEntered(MouseEvent e) {
-
-                                            }
-
-                                            @Override
-                                            public void mouseExited(MouseEvent e) {
-
-                                            }
-                                        }
-                );
-                chessBoard.add(button);
-            }*/
+    }
+    void showPieces() {
+        // Black Pieces
+        tile[0][0].setPiece(new Rook(Color.BLACK, 0, 0));
+        tile[0][1].setPiece(new Knight(Color.BLACK, 0, 1));
+        tile[0][2].setPiece(new Bishop(Color.BLACK, 0, 2));
+        tile[0][3].setPiece(new Queen(Color.BLACK, 0, 3));
+        tile[0][4].setPiece(new King(Color.BLACK, 0, 4));
+        tile[0][5].setPiece(new Bishop(Color.BLACK, 0, 5));
+        tile[0][6].setPiece(new Knight(Color.BLACK, 0, 6));
+        tile[0][7].setPiece(new Rook(Color.BLACK, 0, 7));
+        for (int j = 0; j < 8; j++) {
+            tile[1][j].setPiece(new Pawn(Color.BLACK, 1, j));
         }
 
+        // White Pieces
+        tile[7][0].setPiece(new Rook(Color.WHITE, 7, 0));
+        tile[7][1].setPiece(new Knight(Color.WHITE, 7, 1));
+        tile[7][2].setPiece(new Bishop(Color.WHITE, 7, 2));
+        tile[7][3].setPiece(new Queen(Color.WHITE, 7, 3));
+        tile[7][4].setPiece(new King(Color.WHITE, 7, 4));
+        tile[7][5].setPiece(new Bishop(Color.WHITE, 7, 5));
+        tile[7][6].setPiece(new Knight(Color.WHITE, 7, 6));
+        tile[7][7].setPiece(new Rook(Color.WHITE, 7, 7));
+        for (int j = 0; j < 8; j++) {
+            tile[6][j].setPiece(new Pawn(Color.WHITE, 6, j));
+        }
 
-
-
-    void showPieces() {
-        // knight done
-        Knight bn1 = new Knight(Color.BLACK, 0, 1);
-        tile[0][1].setPiece(bn1);
-        Knight bn2 = new Knight(Color.BLACK, 0, 6);
-        tile[0][6].setPiece(bn2);
-        Knight wn1 = new Knight(Color.WHITE, 7, 1);
-        tile[7][1].setPiece(wn1);
-        Knight wn2 = new Knight(Color.WHITE, 7, 6);
-        tile[7][6].setPiece(wn2);
-
+        // Set other squares to no Piece
+        for (int i = 2; i < 6; i++) {
+            for (int j = 0; j < 8; j++) {
+                tile[i][j].setPiece(new Null(null , i , j));
+            }
+        }
     }
 
-
-    public static JPanel getChessBoard() {
-
+    //=====================================================================================================================//
+    private void movePiece(Square fromButton, Square toButton)
+    {
+        // get the piece from frombutton and setting it to tobutton
+        toButton.setPiece(fromButton.getPiece());
+        Null noPiece = new Null(null, fromButton.getX(), fromButton.getY());  //generic null piece, this i equivalent to removing the piece from the
+        //original square
+        fromButton.setPiece(noPiece);
+    }
+    public static JPanel getChessBoard()
+    {
         return chessBoard;
     }
-
-    public void movePiece(JButton fromButton, JButton toButton) {
-        // Get the icon of the piece from the 'fromButton'
-        Icon pieceIcon = fromButton.getIcon();
-        // Set the icon of the 'toButton' to the piece icon
-        toButton.setIcon(pieceIcon);
-        // Set the icon of the 'fromButton' to null to remove the piece icon
-        fromButton.setIcon(null);
-    }
-
-
-    }
+}
 
 
 
-
-
-
-    /*private void addPieces() {
-        // Add the white pieces
-        //حاولت احط القطع في النص ماحصلش تغيير بس خلوا الكود ممكن نحتاجه
-        tile[0][2].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wB.png")));
-        tile[0][3].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wQ.png")));
-        tile[0][4].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wK.png")));
-        tile[0][5].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wB.png")));
-        tile[0][7].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wR.png")));
-        for (int i = 0; i < 8; i++) {
-            tile[1][i].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/wP.png")));
-        }
-
-        // Add the black pieces
-        tile[7][0].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bR.png")));
-
-        tile[7][2].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bB.png")));
-        tile[7][3].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bQ.png")));
-        tile[7][4].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bK.png")));
-        tile[7][5].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bB.png")));
-        ;
-        tile[7][7].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bR.png")));
-        for (int i = 0; i < 8; i++) {
-            tile[6][i].add(new JLabel(new ImageIcon("1_deliverabless/Piece.Piece/bP.png")));
-        }
-
-    }*/

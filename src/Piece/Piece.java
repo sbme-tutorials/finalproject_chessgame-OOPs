@@ -3,26 +3,28 @@ import java.awt.*;
 
 public abstract class Piece
 {
-    public enum Type
+    public abstract String get_icon(Color color);
+    public enum type
     {
         Pawn,
         Knight,
         Queen,
         Rock,
         Bishop,
-        King
+        King,
+        Null
     }
     public Color color; int x,y ;
-    private Type type;
+    private type type;
     public Piece(Color color, int x, int y) // CONSTRUCTOR
     {
         this.color = color;
         this.x = x;
         this.y = y;
     }
+    public abstract boolean isValidMove(int newX, int newY);//should be implemented in each piece
 
-
-///////////////////setters and getters
+//setters and getters
     public int getX() {
         return x;
     }
@@ -41,24 +43,7 @@ public abstract class Piece
     public Color getColor() {
         return color;
     }
-    public Type getType() {
+    public type gettype() {
         return type;
     }
-
-    public String get_icon(Piece p) { //this returnss the path of the image
-        if (p instanceof Knight ){
-        if (p.getColor()== Color.BLACK){
-            return "1_deliverabless/Piece/bH.png";//is black
-        }
-        else {return "1_deliverabless/Piece/wH.png";}}// is white
-        // add the rest of the pieces here
-        return "";
-    }
-
-
-
-    public abstract boolean isValidMove(int newX, int newY);//should be implemented in each piece
-
-
-
 }
