@@ -14,7 +14,6 @@ public class Frame extends JFrame {
 	int width = 690;
 	int height = 690;
 	Frame(){
-		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("ChessGame");
 		this.setSize(new Dimension(width, height));

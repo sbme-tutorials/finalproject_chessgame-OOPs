@@ -4,14 +4,15 @@ public class Main {
 
 	public static void main(String[] args){
 
-		//new GameView().main(args);
+		//new GameView();
 		
-		//IDandPassword idandpassword = new IDandPassword();
-
-        //new LoginPage(idandpassword.getLoginInfo());
+        new LoginPage(new IDandPassword().getLoginInfo());
 		
-		new History("nour", "eman", 1, "02:00");
+		//new History("nour", "eman", 1, "02:00");
 		
+		//new historyOrPlayNow();
+		
+		//new welcomePage();
 	}
 }
 

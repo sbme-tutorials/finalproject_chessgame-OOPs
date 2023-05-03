@@ -9,38 +9,44 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 
 public class LoginPage implements ActionListener {
+	
     Frame frame = new Frame();
-    JButton loginButton = new JButton("login");
+    JButton loginButton = new JButton("Login");
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
-    JLabel userIDLabel = new JLabel("userID");
+    JLabel userIDLabel = new JLabel("Username:");
     JLabel userPasswordLabel = new JLabel("Password:");
-    JLabel messageLabel = new JLabel("THIS IS A TEXT");
+    JLabel messageLabel = new JLabel();
     HashMap<String,String> logininfo = new HashMap<String,String>();
     
-    LoginPage(HashMap<String,String> logininfoOriginal ){
-        logininfo = logininfoOriginal ;
+    LoginPage(HashMap<String,String> logininfoOriginal){
+        logininfo = logininfoOriginal;
 
-        userIDLabel.setBounds(50,100,75,25);
-        userPasswordLabel.setBounds(50,150,75,25);
+        userIDLabel.setBounds(150,150,150,30);
+        userIDLabel.setFont(new Font("Arial",Font.BOLD,22));
+        userIDLabel.setForeground(Color.WHITE);
+        userPasswordLabel.setBounds(150,260,200,30);
+        userPasswordLabel.setFont(new Font("Arial",Font.BOLD,22));
+        userPasswordLabel.setForeground(Color.WHITE);
+        
+        userIDField.setBounds(150,190,350,30);
+        userPasswordField.setBounds(150,300,350,30);
 
-        messageLabel.setBounds(125,250,250,35);
-        messageLabel.setFont(new Font(null,Font.ITALIC,24));
-
-        userIDField.setBounds(125,100,200,25);
-        userPasswordField.setBounds(125,150,200,25);
-
-        loginButton.setBounds(125,200,100,25);
+        loginButton.setBounds(350,370,150,40);
+        loginButton.setFont(new Font("Arial",Font.BOLD,20));
+        loginButton.setBackground(new Color(0x57354b));
+        loginButton.setForeground(Color.WHITE);
         loginButton.setFocusable(false);
         loginButton.addActionListener(this);
         
+        
         frame.add(userPasswordLabel);
         frame.add(messageLabel);
-        frame.add(userIDLabel);
-        frame.add(userPasswordField);
-        frame.add(userIDField);
-        frame.add(loginButton);
-        
+		frame.add(userIDLabel);
+		frame.add(userPasswordField);
+		frame.add(userIDField);
+		frame.add(loginButton);
+		frame.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e){
@@ -51,17 +57,21 @@ public class LoginPage implements ActionListener {
 
             if (logininfo.containsKey(userID)){
                 if(logininfo.get(userID).equals(password)){
-                    messageLabel.setForeground(Color.green);
-                    messageLabel.setText("Login successful");
+                    frame.dispose();
+                    new historyOrPlayNow();
                 }
                 else {
-                    messageLabel.setForeground(Color.red);
-                    messageLabel.setText("wrong password");
+                	messageLabel.setBounds(390,280,110,15);
+                    messageLabel.setFont(new Font("Arial",Font.PLAIN,14));
+                    messageLabel.setForeground(new Color(0xd10404));
+                    messageLabel.setText("*wrong password");
                 }
             }
             else {
-                messageLabel.setForeground(Color.red);
-                messageLabel.setText("username not found");
+            	messageLabel.setBounds(370,170,130,15);
+                messageLabel.setFont(new Font("Arial",Font.PLAIN,14));
+                messageLabel.setForeground(new Color(0xd10404));
+                messageLabel.setText("*username not found");
             }
         }
     }

@@ -8,7 +8,7 @@ import java.awt.Font;
 public class Panel extends JPanel{
 	{
  
-	this.setBackground(new Color(0x382130));
+	this.setBackground(new Color(0x57354b));
 	
 	
 
@@ -16,10 +16,11 @@ public class Panel extends JPanel{
 }
 
 class Label extends JLabel{
-	{		
-		this.setFont(new Font("SANS_SERIF", Font.BOLD, 24));
+	Label(String text){		
+		this.setFont(new Font("Arial", Font.BOLD, 10));
 		this.setForeground(Color.white);
-		this.setBackground(Color.WHITE);
+		this.setText(text);
+		//this.setBackground(Color.WHITE);
 		
 	}
 

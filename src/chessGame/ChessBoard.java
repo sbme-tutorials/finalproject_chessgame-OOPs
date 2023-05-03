@@ -28,7 +28,7 @@ public class ChessBoard {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if ((i + j) % 2 != 0) {
-                    squares[i][j].setBackground(new Color(0x382130));
+                    squares[i][j].setBackground(new Color(0x57354b));
                 } else {
                     squares[i][j].setBackground(new Color(0xedc3bb));
                 }
