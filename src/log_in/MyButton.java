@@ -13,7 +13,7 @@ public class MyButton extends JButton {
 
         // Set the border of the button to be a rounded border with a gray color
         setBorder(BorderFactory.createLineBorder(getBackground(), 0));
-
+        setFont(new Font("acifico", Font.BOLD, 15));
         // Make the button transparent so that only the border is visible
         setOpaque(false);
         setContentAreaFilled(false);

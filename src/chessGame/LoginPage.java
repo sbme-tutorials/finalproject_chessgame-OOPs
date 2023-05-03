@@ -11,7 +11,7 @@ public class LoginPage implements ActionListener {
 	
     Frame frame = new Frame();
     JButton loginButton = new JButton("Login");
-    JTextField userIDField = new JTextField();
+    static JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
     JLabel userIDLabel = new JLabel("Username:");
     JLabel userPasswordLabel = new JLabel("Password:");
@@ -52,11 +52,11 @@ public class LoginPage implements ActionListener {
 
         if (e.getSource() == loginButton){
             String userID = userIDField.getText();
-            String password = String.valueOf(userPasswordField.getPassword());
+            String password = String.valueOf(userPasswordField.getPassword());   
 
             if (logininfo.containsKey(userID)){
                 if(logininfo.get(userID).equals(password)){
-                    frame.dispose();
+                	frame.dispose();
                     new historyOrPlayNow();
                 }
                 else {
@@ -74,5 +74,7 @@ public class LoginPage implements ActionListener {
             }
         }
     }
-
+    public static String getName() {
+        return userIDField.getText();
+    }
 }

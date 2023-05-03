@@ -51,7 +51,7 @@ public class welcomePage implements ActionListener {
 		
 		if(e.getSource()==button1) {
 			f.dispose();
-		    //new LoginPage();
+			new LoginPage(new IDandPassword().getLoginInfo());
 		  }	
 		  else if(e.getSource()==button2) {
 			  f.dispose();

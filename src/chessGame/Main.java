@@ -14,9 +14,13 @@ public class Main {
 		
 		//new historyOrPlayNow();
 		
-		//new welcomePage();
+		new welcomePage();
 		
-		new Choose().Lastframe();
+		//new Choose().Lastframe();
+		
+		//new historyOrPlayNow();
+		
+		//new Counter().countdownTimer(3);
 	}
 }
 

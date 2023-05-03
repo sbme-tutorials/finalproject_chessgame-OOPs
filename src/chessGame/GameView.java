@@ -3,6 +3,8 @@ package chessGame;
 import java.awt.*;
 
 import javax.swing.*;
+
+import log_in.Choose;
 public class GameView {
     //public static void main(String[] args) 
 	{
@@ -10,23 +12,22 @@ public class GameView {
     	Label label1, label2, label3, label4, label5, label6, label7, label8, labela, labelb, labelc, labeld, labele, labelf, labelg, labelh;
 
         Frame frame = new Frame();
-        new Counter();
-
+        new Counter().countdownTimer(1);
+        frame.add(Counter.p1());
+        frame.add(Counter.p2());
         //Nouran's part
-        Panel timer1 = new Panel();
-        Panel timer2 = new Panel();
-        Label label_1 = new Label("00:00");
-        Label label_2 = new Label("00:00");
+		/*
+		 * Panel timer1 = new Panel(); Panel timer2 = new Panel(); Label label_1 = new
+		 * Label("00:00"); Label label_2 = new Label("00:00");
+		 * 
+		 * label_1.setFont(new Font("Arial",Font.BOLD,24)); label_2.setFont(new
+		 * Font("Arial",Font.BOLD,24));
+		 */
         
-        label_1.setFont(new Font("Arial",Font.BOLD,22));
-        label_2.setFont(new Font("Arial",Font.BOLD,22));
-        
-        frame.add(timer1);
-        timer1.setBounds(470, 15, 80, 40);
-        timer1.add(label_1);
-        frame.add(timer2);
-        timer2.setBounds(470, 580, 80, 40);
-        timer2.add(label_2);
+		/*
+		 * frame.add(timer1); timer1.setBounds(470, 15, 80, 40); timer1.add(label_1);
+		 * frame.add(timer2); timer2.setBounds(470, 580, 80, 40); timer2.add(label_2);
+		 */
         
         //Aly's part
         player1 = new JLabel("Player1");
@@ -107,9 +108,6 @@ public class GameView {
         chessPanel.setPreferredSize(new Dimension(520, 520));
         chessPanel.setBounds(50, 65, 500, 500);
         frame.getContentPane().add(chessPanel);
-        
-        
-        
         frame.setVisible(true);
     }
 }

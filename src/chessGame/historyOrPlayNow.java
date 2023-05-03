@@ -4,7 +4,9 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class historyOrPlayNow extends JFrame implements ActionListener{
+import log_in.Choose;
+
+public class historyOrPlayNow implements ActionListener{
 
 	//frame
 	Frame f= new Frame();
@@ -16,9 +18,10 @@ public class historyOrPlayNow extends JFrame implements ActionListener{
 	
 	// default constructor
 	historyOrPlayNow(){
-		l.setText("User name");
-		l.setBounds(270, 200, 300, 30); //Setting the bounds of the label.
+		l.setText("Welcome "+LoginPage.getName());
+		l.setBounds(220, 200, 300, 30); //Setting the bounds of the label.
 		l.setFont(new Font("Arial", Font.PLAIN, 30));
+		l.setForeground(Color.WHITE);
 		
 		button1.addActionListener(this);
 		button1.setBounds(170, 340, 150, 40);
@@ -45,14 +48,13 @@ public class historyOrPlayNow extends JFrame implements ActionListener{
 	@Override
 	 public void actionPerformed(ActionEvent e) {
 	  
-	/*  if(e.getSource()==button1) {
-	   f.dispose();
-	   History history = new History();
-	  }
-	  else */
-		  if(e.getSource()==button2) {
+	   if(e.getSource()==button1) {
 		   f.dispose();
-		   new GameView();
+		   new PlayerHistory();
+	  }
+	  else if(e.getSource()==button2) {
+		  f.dispose();
+		  new Choose().Lastframe();
 		  }
 	 }
 }
