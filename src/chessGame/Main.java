@@ -10,8 +10,6 @@ public class Main {
 		
         //new LoginPage(new IDandPassword().getLoginInfo());
 		
-		//new History("nour", "eman", 1, "02:00");
-		
 		//new historyOrPlayNow();
 		
 		new welcomePage();
