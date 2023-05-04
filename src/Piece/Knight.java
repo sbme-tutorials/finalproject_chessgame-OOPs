@@ -19,7 +19,7 @@ public class Knight extends Piece {
             return true;
         }
         else
-        return false;
+        	return false;
     }
     /*public String get_icon(PieceColor color){
         if (this.color == Color.white)

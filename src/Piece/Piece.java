@@ -45,7 +45,7 @@ public abstract class Piece
         return type;
     }
 
-    public String get_icon(Piece p) { //this returnss the path of the image
+    public String get_icon(Piece p) { //this returns the path of the image
         if (p instanceof Knight ){
         if (p.getColor()== Color.BLACK){
             return "1_deliverabless/Piece/bH.png";//is black
