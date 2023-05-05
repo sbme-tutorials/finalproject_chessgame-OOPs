@@ -108,7 +108,6 @@ public class ChessBoard {
         tile[0][1].setPiece(new Knight(Color.BLACK, 0, 1));
         tile[0][2].setPiece(new Bishop(Color.BLACK, 0, 2));
         tile[0][3].setPiece(new Queen(Color.BLACK, 0, 3));
-
         tile[0][4].setPiece(blackKing);
         tile[0][5].setPiece(new Bishop(Color.BLACK, 0, 5));
         tile[0][6].setPiece(new Knight(Color.BLACK, 0, 6));
@@ -122,7 +121,6 @@ public class ChessBoard {
         tile[7][1].setPiece(new Knight(Color.WHITE, 7, 1));
         tile[7][2].setPiece(new Bishop(Color.WHITE, 7, 2));
         tile[7][3].setPiece(new Queen(Color.WHITE, 7, 3));
-
         tile[7][4].setPiece(whiteKing);
         tile[7][5].setPiece(new Bishop(Color.WHITE, 7, 5));
         tile[7][6].setPiece(new Knight(Color.WHITE, 7, 6));
