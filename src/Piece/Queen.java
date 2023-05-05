@@ -1,7 +1,7 @@
 package Piece;
 
 import java.awt.*;
-import static chessGame.ChessBoard.tile;
+
 
 public class Queen extends Piece {
     //private final Piece p = knight;
@@ -9,40 +9,17 @@ public class Queen extends Piece {
         super(color, x, y);
     }
 
-    boolean isVertical(int newX,int newY) {
-        if (newX == getX()) {
-            if (newY > getY()) {
-                for (int i = getY() + 1; i <= newY; i++) {
-                    if (tile[getX()][i] != null)
-                    	return false;
-                }
-                return true;
-            }
-            else {
-                for (int i = getY() - 1; i >= newY; i--) {
-                    if (tile[getX()][i] != null)
-                    	return false;
-                }
-                return true;
-            }
-        }
-        return false;
-    }
 
+
+    @Override
     public boolean isValidMove(int newX, int newY) {
         int diff1 = Math.abs(newX - getX());
         int diff2 = Math.abs(newY - getY());
-        if ((diff1 != diff2))
-            return false;
-        //Check if there are any pieces in the way
-        int dx = (newX - getX()) / Math.abs(newX - getX());
-        int dy = (newY - getY()) / Math.abs(newY - getY());
-        for (int i = 1; i < Math.abs(newX - getX()); i++) {
-            if (tile[getX() + i * dx][getY() + i * dy] != null) {
-                return false;
-            }
+        if ( (diff1==3 && diff2 == 2) || (diff1 == 2 && diff2 == 3) ) {
+            return true;
         }
-        return true;
+        else
+            return false;
     }
     @Override
     public String get_icon(Color color){

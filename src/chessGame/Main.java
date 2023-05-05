@@ -1,24 +1,24 @@
 package chessGame;
 
-import log_in.Choose;
-
 public class Main {
 
 	public static void main(String[] args){
 
+		//*showing the game only*
 		//new GameView();
 		
+		//*start from the login page*
         //new LoginPage(new IDandPassword().getLoginInfo());
 		
-		//new History("nour", "eman", 1, "02:00");
-		
+		//*start from user profile*
 		//new historyOrPlayNow();
 		
-		//new welcomePage();
+		//*start from the beginning of the game*
+		new welcomePage();
 		
+		//*start from game setup*
 		//new Choose().Lastframe();
 		
-		new GameView().main(args);
 	}
 }
 

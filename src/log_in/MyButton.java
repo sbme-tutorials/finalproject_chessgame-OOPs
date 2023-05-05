@@ -1,4 +1,5 @@
 package log_in;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +13,7 @@ public class MyButton extends JButton {
 
         // Set the border of the button to be a rounded border with a gray color
         setBorder(BorderFactory.createLineBorder(getBackground(), 0));
-
+        setFont(new Font("acifico", Font.BOLD, 15));
         // Make the button transparent so that only the border is visible
         setOpaque(false);
         setContentAreaFilled(false);
@@ -30,7 +31,7 @@ public class MyButton extends JButton {
         // Draw the button border
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke(4));
-        g2.setColor(Color.BLUE);
+        g2.setColor(new Color(0x57354b));
         g2.drawOval(1, 1, getWidth()-3, getHeight()-3);
     }
 }

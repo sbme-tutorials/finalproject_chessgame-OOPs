@@ -1,8 +1,8 @@
 package Piece;
-import java.awt.*;
-
 import chessGame.Square;
 
+import java.awt.*;
+import java.util.ArrayList;
 public abstract class Piece
 {
     public abstract String get_icon(Color color);
@@ -14,21 +14,24 @@ public abstract class Piece
         Rock,
         Bishop,
         King,
-        Null;
+        Null
     }
-    public Color color; int x ;
-    int y;
-    private type type;
-
+    public Color color; int x,y ;
+    private static type type;
     public Piece(Color color, int x, int y) // CONSTRUCTOR
     {
         this.color = color;
         this.x = x;
         this.y = y;
     }
-    public abstract boolean isValidMove(int newX, int newY);//should be implemented in each piece
-    
+    public boolean isValidMove(int newX, int newY)//should be implemented in each piece
+    {
+        return !(this.getColor() == color);
+
+    }
+
 //setters and getters
+
     public int getX() {
         return x;
     }
@@ -50,8 +53,5 @@ public abstract class Piece
     public type gettype() {
         return type;
     }
-	boolean isPathClear(Square fromButton, Square toButton, Square[][] tile) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 }

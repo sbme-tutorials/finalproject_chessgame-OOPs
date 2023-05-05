@@ -1,8 +1,11 @@
 package Piece;
 
+import chessGame.ChessBoard;
+import chessGame.Square;
+
 import java.awt.*;
 
-import chessGame.ChessBoard;
+import static chessGame.ChessBoard.tile;
 
 
 public class Rook extends Piece {
@@ -11,29 +14,33 @@ public class Rook extends Piece {
         super(color, x, y);
     }
 
-    static boolean isMovedR = false;
 
-    @Override
-    public boolean isValidMove(int newX, int newY) {
-        int diff1 = Math.abs(newX - getX());
-        int diff2 = Math.abs(newY - getY());
-        if (diff1 == 0||diff2 == 0) {
-            int dx = Integer.signum(newX - getX());
-            int dy = Integer.signum(newY - getY());
-            int x = getX() + dx;
-            int y = getY() + dy;
-            while (x != newX || y != newY) {
-                if (ChessBoard.tile[x][y] != null) {
-                	return false;
-                }
-                x += dx;
-                y += dy;
+
+        @Override
+        public boolean isValidMove(int newX, int newY) {
+            int diffX = Math.abs(newX - x);
+            int diffY = Math.abs(newY - y);
+
+            if (diffX != 0 && diffY != 0) {
+                // The move is not vertical or horizontal
+                return false;
             }
-            isMovedR = true;
-            return true; 
+
+            int xDir = Integer.signum(newX - x);
+            int yDir = Integer.signum(newY - y);
+
+            // Check if there are pieces in the path
+            for (int i = x + xDir, j = y + yDir; i != newX || j != newY; i += xDir, j += yDir) {
+                if (tile[i][j].getPiece().getColor() != null) {
+                    return false;
+                }
+            }
+isMovedR = true;
+            return true;
         }
-        return false;
-    }
+
+
+
     @Override
     public String get_icon(Color color){
         if (this.color == Color.white)
@@ -43,8 +50,9 @@ public class Rook extends Piece {
         else
             return "1_deliverabless/Piece/bR.png";
     }
-    
+
+    static boolean isMovedR = false;
     public static boolean getStatusR() {
-    	return isMovedR;
+        return isMovedR;
     }
 }

@@ -1,46 +1,80 @@
 package Piece;
+import chessGame.ChessBoard;
+import chessGame.Square;
 
+import javax.swing.*;
 import java.awt.*;
 
-import chessGame.ChessBoard;
-
+import static chessGame.ChessBoard.tile;
 
 public class King extends Piece {
-    //private final Piece p = knight;
     public King(Color color, int x, int y) {
         super(color, x, y);
     }
-    
-    boolean isMovedK = false;
-    boolean isMovedR = Rook.getStatusR();
-    boolean noObstacle = false;
-    static boolean isCastling = false;
+    public King king;
 
     @Override
     public boolean isValidMove(int newX, int newY) {
-        int diff1 = Math.abs(newX - getX());
-        int diff2 = Math.abs(newY - getY());
-        if ((diff1 == 1 && diff2 == 0)||(diff1 == 0 && diff2 == 1)||( diff1 == 1  && diff2 == 1)){
-        	int dx = Integer.signum(newX - getX());
-            int dy = Integer.signum(newY - getY());
-            int x = getX() + dx;
-            int y = getY() + dy;
-            while (x != newX || y != newY) {
-                if (ChessBoard.tile[x][y] != null) {
-                	return false;
-                }
-                x += dx;
-                y += dy;
-            }
-            isMovedK = true;
+        int diff1 = Math.abs(newX - this.getX());
+        int diff2 = Math.abs(newY - this.getY());
+
+        boolean check1 = (diff1 == 0 && diff2 == 1);
+        boolean check2 = (diff2 == 0 && diff1 == 1);
+        boolean chek3 = (diff2 == 1 && diff1 == 1);
+        // remember to add another check to avoid kings being next to each other
+
+        if (check1 || check2 || chek3)
             return true;
-        }
-        else if((diff1 ==3|| diff1 ==2)&&diff2==0) {
-        	isCastling = true;
-        	castling(isMovedR,isMovedK,noObstacle);
+        else
+            return false;
+    }
+    public boolean IsinItCheck (Square[][] tile) {//this function checks if any piece can check the king
+        //tile[i][j] is the one attacking the king
+        outerloop:
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                        if (tile[i][j].getPiece().isValidMove(this.getX(),this.getY()))
+                            if (this.getColor() != tile[i][j].getColor()) {
+                                System.out.println(this + "check");//change this with a msg on the interface
+                                return true;
+                            }
+            }
         }
         return false;
     }
+    public boolean CanGetOutofCheck(King king) {
+        int oldX = king.getX();
+        int oldY = king.getY();
+
+        // Simulate all possible moves of the king
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (king.isValidMove(i, j)) {
+                    if (king.getColor() != tile[i][j].getColor())
+                        // Try the move
+                        king.setX(i);
+                        king.setY(j);
+
+                        // Check if the king is out of check
+                        if (!king.IsinItCheck(tile)) {
+                            // Reset the king's position and return true
+                            king.setX(oldX);
+                            king.setY(oldY);
+                            return true;
+                        }
+                    }
+                }
+            }
+
+        // Reset the king's position and return false
+        king.setX(oldX);
+        king.setY(oldY);
+        return false;
+    }
+
+
+
+
     @Override
     public String get_icon(Color color){
         if (this.color == Color.white)
@@ -50,17 +84,4 @@ public class King extends Piece {
         else
             return "1_deliverabless/Piece./bK.png";
     }
-    public boolean castling(boolean r, boolean k, boolean o) {
-    	if((ChessBoard.tile[1][7]!=null&&ChessBoard.tile[2][7]!=null&&ChessBoard.tile[3][7]!=null)||(ChessBoard.tile[5][7]!=null||ChessBoard.tile[6][7]!=null)||(ChessBoard.tile[1][0]!=null&&ChessBoard.tile[2][0]!=null&&ChessBoard.tile[3][0]!=null)||(ChessBoard.tile[5][0]!=null||ChessBoard.tile[6][0]!=null)) {
-    		noObstacle = true;}
-    	if(r && k && o)
-    		return false;
-    	return true;
-    }
-	public static boolean getCastling () {
-		return isCastling; 
-		}
-	public static void setCastling(boolean cast) {
-		King.isCastling = cast;
-	}
 }
