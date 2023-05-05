@@ -1,8 +1,6 @@
 package chessGame;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,9 +16,12 @@ public class Frame extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("chessGame");
-		this.setSize(690, 690);
+
+		this.setSize(690, 790);
+		this.setPreferredSize(new Dimension(690,790));
 		this.setLayout(null);
 		this.getContentPane().setBackground(new Color(0xadadad));
+
 
 		ImageIcon image = new ImageIcon("logo.jpg");
 		this.setIconImage(image.getImage());

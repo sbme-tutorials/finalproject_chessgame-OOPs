@@ -17,6 +17,8 @@ public class Main {
 		//new welcomePage();
 		
 		//new Choose().Lastframe();
+		
+		new GameView().main(args);
 	}
 }
 

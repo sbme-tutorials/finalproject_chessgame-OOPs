@@ -60,10 +60,12 @@ public class Choose extends Frame{
 
 //start game button
             JButton start = new JButton("Start Game");
+
             start.setBounds(250, 550, 200, 70);
             start.setBackground(new Color(0x544894));
             start.setForeground(Color.WHITE);
             start.setFont(new Font("Arial", Font.BOLD, 28));
+
 
 
             frame.add(label1);
