@@ -19,6 +19,9 @@ public class Knight extends Piece
         else
         	return false;
     }
+
+
+
     @Override
     public String get_icon(Color color)//this function returns the icon path to the setPiece method in the Square class
     {

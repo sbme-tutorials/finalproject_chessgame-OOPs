@@ -1,8 +1,5 @@
 package Piece;
 
-import chessGame.ChessBoard;
-import chessGame.Square;
-
 import java.awt.*;
 
 import static chessGame.ChessBoard.tile;
@@ -14,12 +11,11 @@ public class Rook extends Piece {
         super(color, x, y);
     }
 
-
-
-        @Override
+    @Override
         public boolean isValidMove(int newX, int newY) {
             int diffX = Math.abs(newX - x);
             int diffY = Math.abs(newY - y);
+
 
             if (diffX != 0 && diffY != 0) {
                 // The move is not vertical or horizontal
@@ -31,7 +27,7 @@ public class Rook extends Piece {
 
             // Check if there are pieces in the path
             for (int i = x + xDir, j = y + yDir; i != newX || j != newY; i += xDir, j += yDir) {
-                if (tile[i][j].getPiece().getColor() != null) {
+                if (tile[i][j].getColor() != null) {
                     return false;
                 }
             }

@@ -1,20 +1,23 @@
 package Piece;
-import chessGame.ChessBoard;
+
 import chessGame.Square;
 
-import javax.swing.*;
 import java.awt.*;
 
-import static chessGame.ChessBoard.tile;
+import static chessGame.ChessBoard.*;
 
 public class King extends Piece {
     public King(Color color, int x, int y) {
         super(color, x, y);
+
     }
     public King king;
+    boolean ismoved = false;
+    Color originalKingColor = this.getColor();
 
     @Override
     public boolean isValidMove(int newX, int newY) {
+        ismoved=true;
         int diff1 = Math.abs(newX - this.getX());
         int diff2 = Math.abs(newY - this.getY());
 
@@ -23,54 +26,66 @@ public class King extends Piece {
         boolean chek3 = (diff2 == 1 && diff1 == 1);
         // remember to add another check to avoid kings being next to each other
 
-        if (check1 || check2 || chek3)
+        if ((check1 || check2 || chek3 || this.canCastle(newX,newY))&& !this.doesNewMovePutInCheck(newX,newY) ) {
+
             return true;
+        }
+
         else
             return false;
     }
-    public boolean IsinItCheck (Square[][] tile) {//this function checks if any piece can check the king
+    public boolean IsinItCheck(Square[][] tile) {//this function checks if any piece can check the king
         //tile[i][j] is the one attacking the king
         outerloop:
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                        if (tile[i][j].getPiece().isValidMove(this.getX(),this.getY()))
-                            if (this.getColor() != tile[i][j].getColor()) {
-                                System.out.println(this + "check");//change this with a msg on the interface
-                                return true;
-                            }
+                if (tile[i][j].getPiece().isValidMove(whiteKing.getX(), whiteKing.getY())&& tile[i][j].getColor()==Color.black) {
+                    System.out.println(tile[i][j].getPiece() + " check white king");//change this with a msg on the interface
+                    return true;
+                } else if (tile[i][j].getPiece().isValidMove(blackKing.getX(), blackKing.getY())&&tile[i][j].getColor()==Color.white) {
+                    System.out.println(tile[i][j].getPiece() + " check black king");//change this with a msg on the interface
+                    return true;
+                }
             }
         }
         return false;
     }
     public boolean CanGetOutofCheck(King king) {
-        int oldX = king.getX();
-        int oldY = king.getY();
+        int oldX = this.getX();
+        int oldY = this.getY();
 
         // Simulate all possible moves of the king
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (king.isValidMove(i, j)) {
-                    if (king.getColor() != tile[i][j].getColor())
+                if (this.isValidMove(i, j)) {
+                    if (this.getColor() != tile[i][j].getColor()) {
                         // Try the move
-                        king.setX(i);
-                        king.setY(j);
+                        this.setX(i);
+                        this.setY(j);
 
                         // Check if the king is out of check
-                        if (!king.IsinItCheck(tile)) {
+                        if (!this.IsinItCheck(tile)) {
                             // Reset the king's position and return true
-                            king.setX(oldX);
-                            king.setY(oldY);
+                            this.setX(oldX);
+                            this.setY(oldY);
                             return true;
                         }
                     }
                 }
             }
+        }
 
         // Reset the king's position and return false
         king.setX(oldX);
         king.setY(oldY);
         return false;
     }
+
+    //==========================================================================//
+
+
+
+
 
 
 
