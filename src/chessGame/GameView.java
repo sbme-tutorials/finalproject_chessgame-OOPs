@@ -2,18 +2,34 @@ package chessGame;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import log_in.Choose;
+
 import java.awt.*;
 public class GameView {
     //public static void main(String[] args) 
+	static Counter timerw;
+	static Counter timerb;
 	{
     	JLabel player1, player2, score1, score2;
     	Label label1, label2, label3, label4, label5, label6, label7, label8, labela, labelb, labelc, labeld, labele, labelf, labelg, labelh;
 
+    	Panel panelW = new Panel();
+    	Panel panelB = new Panel();
+    	
+    	panelW.setBounds(470, 580, 80, 40);
+        panelB.setBounds(470, 15, 80, 40);
+    	
         Frame frame = new Frame();
+        frame.add(panelB);
+        frame.add(panelW);
+        
+        timerw = new Counter(Choose.getTimer());
+        timerb = new Counter(Choose.getTimer());
+        
+        panelW.add(timerw.label);
+        panelB.add(timerb.label);
 
-        new Counter().countdownTimer(1);
-        frame.add(Counter.p1());
-        frame.add(Counter.p2());
         //Nouran's part
 		/*
 		 * Panel timer1 = new Panel(); Panel timer2 = new Panel(); Label label_1 = new

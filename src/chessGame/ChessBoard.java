@@ -1,6 +1,7 @@
 package chessGame;
 import Piece.*;
 import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -83,7 +84,12 @@ public class ChessBoard {
                             {
                                 resetBackground();
                                 //========================================
-                                movePiece(fromButton, toButton);
+                                if(Pawn.getPromotion()&&(fromButton.getMyX()==1||fromButton.getMyX()==6)) {
+                                	promotion(fromButton,toButton);
+                                	Pawn.setPromotion(false);
+                                	}
+                                else
+                                	movePiece(fromButton, toButton);
                                 //========================================  end Game   ===================================//
                                 if (whiteKing.IsinItCheck(tile) && !whiteKing.CanGetKingOutofCheck(whiteKing))
                                     System.out.println("GAME OVER BLACK WINS");
@@ -117,7 +123,17 @@ public class ChessBoard {
                             }
                         }
                     }
-
+                  //stopping counter
+                    if(isWhiteTurn) { 
+                    	GameView.timerw.start();
+                    	GameView.timerb.stop();
+                    	//System.out.println("white turn.");
+                    }
+                    else {
+                    	GameView.timerw.stop();
+                    	GameView.timerb.start();
+                    	//System.out.println("black turn.");
+                    }
                 }
             }
         });
@@ -234,5 +250,54 @@ public class ChessBoard {
     public static JPanel getChessBoard() {
         return chessBoard;
     }
+    //==============================================Promotion===========================================================//
+    private void promotion(Square fromButton, Square toButton) {
+    	ImageIcon logo = new ImageIcon("chessGame/1_deliverabless/Pro.PNG");
+    	Null noPiece = new Null(null, fromButton.getX(), fromButton.getY());
+        Object[] options = {"Queen", "Rook", "Bishop", "Knight"};
+        int choice = JOptionPane.showOptionDialog(
+            null, "Congratulations, You are promoted!", "Promotion",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, logo,
+            options, options[3]);
+        if(fromButton.getMyX()==6)
+        switch (choice) {
+            case 0:{
+                toButton.setPiece(new Queen(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
+                fromButton.setPiece(noPiece);
+                break;
+                }
+            case 1:{
+            	toButton.setPiece(new Rook(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
+                fromButton.setPiece(noPiece);
+                break;}
+            case 2:{
+            	toButton.setPiece(new Bishop(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
+                fromButton.setPiece(noPiece);
+                break;}
+            case 3:{
+            	toButton.setPiece(new Knight(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
+                fromButton.setPiece(noPiece);
+                break;}
+        	}
+        else if(fromButton.getMyX()==1)
+        	switch (choice) {
+            case 0:{
+                toButton.setPiece(new Queen(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
+                fromButton.setPiece(noPiece);
+                break;}
+            case 1:{
+            	toButton.setPiece(new Rook(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
+                fromButton.setPiece(noPiece);
+                break;}
+            case 2:{
+            	toButton.setPiece(new Bishop(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
+                fromButton.setPiece(noPiece);
+                break;}
+            case 3:{
+            	toButton.setPiece(new Knight(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
+                fromButton.setPiece(noPiece);
+                break;}
+        		}
+    }    
 }
 

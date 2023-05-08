@@ -1,5 +1,6 @@
 package Piece;
 
+import static chessGame.ChessBoard.tile;
 import java.awt.*;
 
 
@@ -17,34 +18,55 @@ public class Pawn extends Piece {
         else
             return false;
     }
+    static boolean isPromoted = false;
 
     @Override
     public boolean isValidMove(int newX, int newY) {
         int diff1 = newX - getX();   //don't take abs as the pawn can't return back.
         int diff2 = Math.abs(newY - getY());
+        int dx = Integer.signum(newX-getX());
+        int dy = Integer.signum(newY-getY());
+        boolean firstMoveB = false;
+        boolean firstMoveW = false;
 
         if (this.color == Color.black ){
-            if(isFirst(this.color)){
-                if ((diff1 == 2 && diff2 == 0) || (diff1 == 1 && diff2 == 0))
-                    return true;
+            if (isFirst(this.color)){
+                if ((diff1 == 2 && diff2 == 0) || (diff1 == 1 && diff2 == 0)||(diff2==1&&diff1==1&&tile[getX()+dx][getY()+dy].getColor()==Color.WHITE)) {
+                	if(diff1 == 2)
+                		if(tile[getX()+1][getY()].getPiece().getColor()!=null)
+                			return false;
+                		else 
+                			firstMoveB = true;
+                	return true;
+                }
             }
-            else if (((diff1 == 1 && diff2 == 1)  || (diff1 == 1 && diff2 == 0)))
-                return true ;
+            else if ((diff1 == 1 && diff2 == 0)||(diff2==1&&diff1==1&&tile[getX()+dx][getY()+dy].getColor()==Color.WHITE)) {
+            	if(newX == 7)
+            		isPromoted = true;
+            	return true ;
+            }
             else
                 return false;
         }
         else if (this.color == Color.white){
             if(isFirst(this.color)){
-                if ((diff1 == -2 && diff2 == 0) || (diff1 == -1 && diff2 == 0))
-                    return true;
+                if ((diff1 == -2 && diff2 == 0) || (diff1 == -1 && diff2 == 0)||(diff2==1&&diff1==-1&&tile[getX()+dx][getY()+dy].getColor()==Color.BLACK)) {
+                	if(diff1 == -2)
+	                	if(tile[getX()-1][getY()].getPiece().getColor()!=null)
+	            			return false;
+	                	else 
+                			firstMoveW = true;
+                	return true;
+                }
             }
-            else if ((diff1 == -1 && diff2 == 1) || (diff1 == -1 && diff2 == 0))
-                return true ;
+            else if ((diff1 == -1 && diff2 == 0)||(diff2==1&&diff1==-1&&tile[getX()+dx][getY()+dy].getColor()==Color.BLACK)) {
+            	if(newX == 0)
+            		isPromoted = true;
+            	return true ;
+            }
         }
         return false;
     }
-
-
 
     @Override
     public String get_icon(Color color){
@@ -55,4 +77,12 @@ public class Pawn extends Piece {
         else
             return "1_deliverabless/Piece/bP.png";
     }
+    public static boolean getPromotion() {
+    	return isPromoted;
+    }
+
+	public static void setPromotion(boolean state) {
+		Pawn.isPromoted = state;
+		
+	}
 }

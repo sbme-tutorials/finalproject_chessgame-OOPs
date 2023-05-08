@@ -1,12 +1,10 @@
-package log_in;
-
-import javax.swing.*;
+package log_in; 
 import java.awt.*;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import chessGame.Counter;
+import javax.swing.*;
+
 import chessGame.Frame;
 import chessGame.GameView;
 
@@ -28,8 +26,7 @@ public class Choose implements ActionListener{
     JLabel label1 = new JLabel("Please pick a side");
 	JLabel label2 = new JLabel("Please set a timer");
     
-	Counter counter = new Counter();
-	
+		
 	static boolean time1 = false;
 	static boolean time3 = false;
 	static boolean time5 = false;
@@ -38,7 +35,7 @@ public class Choose implements ActionListener{
 	
 	public void Lastframe(){
 		//label 1 pick a side !	
-		label1.setForeground(Color.WHITE);
+		label1.setForeground(new Color(0x2f263b));
 		label1.setFont(new Font("Pacifico", Font.BOLD, 28));
 		label1.setBounds(50, 0, 550, 100);
 		
@@ -48,7 +45,7 @@ public class Choose implements ActionListener{
 		white.setBackground(Color.WHITE);
 		whiteText.setBounds(80,210,100,25);
 		whiteText.setFont(new Font("Pacifico", Font.BOLD, 18));
-		whiteText.setForeground(Color.WHITE);
+		whiteText.setForeground(new Color(0x2f263b));
             
 		//button 2 pick black
 		black.setBounds(175, 100, 100, 100);
@@ -56,10 +53,10 @@ public class Choose implements ActionListener{
 		
 		blackText.setBounds(200,210,100,25);
 		blackText.setFont(new Font("Pacifico", Font.BOLD, 18));
-		blackText.setForeground(Color.WHITE);
+		blackText.setForeground(new Color(0x2f263b));
 		
 		//setting a timer
-		label2.setForeground(Color.WHITE);
+		label2.setForeground(new Color(0x2f263b));
 		label2.setFont(new Font("acifico", Font.BOLD, 28));
 		label2.setBounds(50, 300, 550, 100);
 		
@@ -68,6 +65,12 @@ public class Choose implements ActionListener{
 		min5.setBounds(300, 400, 90, 90);
 		min10.setBounds(425, 400, 90, 90);		
 		min30.setBounds(550, 400, 90, 90);
+		
+		min1.addActionListener(this);
+		min3.addActionListener(this);
+		min5.addActionListener(this);
+		min10.addActionListener(this);
+		min30.addActionListener(this);
 		
 		//startgame button
 		start.setBounds(250, 550, 200, 50);
@@ -98,8 +101,12 @@ public class Choose implements ActionListener{
     		time3 = false;
     		time5 = false;
     		time10 = false;
-    		time30 = false;
-    		min1.setBackground(new Color(0xedc3bb));
+    		time30 = false;	
+    		min1.setBackground(new Color(0xb098eb));
+    		min3.setBackground(Color.white);
+    		min5.setBackground(Color.white);
+    		min10.setBackground(Color.white);
+    		min30.setBackground(Color.white);
     	}
     	else if(e.getSource()==min3) {
     		time1 = false;
@@ -107,6 +114,11 @@ public class Choose implements ActionListener{
     		time5 = false;
     		time10 = false;
     		time30 = false;
+    		min1.setBackground(Color.white);
+    		min3.setBackground(new Color(0xb098eb));
+    		min5.setBackground(Color.white);
+    		min10.setBackground(Color.white);
+    		min30.setBackground(Color.white);
     	}
     	else if(e.getSource()==min5) {
     		time1 = false;
@@ -114,6 +126,11 @@ public class Choose implements ActionListener{
     		time5 = true;
     		time10 = false;
     		time30 = false;
+    		min1.setBackground(Color.white);
+    		min3.setBackground(Color.white);
+    		min5.setBackground(new Color(0xb098eb));
+    		min10.setBackground(Color.white);
+    		min30.setBackground(Color.white);
     	}
     	else if(e.getSource()==min10) {
     		time1 = false;
@@ -121,6 +138,12 @@ public class Choose implements ActionListener{
     		time5 = false;
     		time10 = true;
     		time30 = false;
+    		min1.setBackground(Color.white);
+    		min3.setBackground(Color.white);
+    		min5.setBackground(Color.white);
+    		min10.setBackground(new Color(0xb098eb));
+    		min30.setBackground(Color.white);
+    	
     	}
     	else if(e.getSource()==min30) {
     		time1 = false;
@@ -128,6 +151,11 @@ public class Choose implements ActionListener{
     		time5 = false;
     		time10 = false;
     		time30 = true;
+    		min1.setBackground(Color.white);
+    		min3.setBackground(Color.white);
+    		min5.setBackground(Color.white);
+    		min10.setBackground(Color.white);
+    		min30.setBackground(new Color(0xb098eb));
     	}
 		
 		if(e.getSource()==start) {
@@ -137,21 +165,11 @@ public class Choose implements ActionListener{
     
 	}
 	public static int getTimer(){
-		if(time1) {
-			return 1;
-		}
-		else if(time3) {
-			return 3;
-		}
-		else if(time5) {
-			return 5;
-		}
-		else if(time10) {
-			return 10;
-		}
-		else if(time30) {
-			return 30;
-		}
+		if(time1) return 1;
+		else if(time3) return 3;
+		else if(time5) return 5;
+		else if(time10) return 10;
+		else if(time30) return 30;
 		return 0;
 	}
 }
