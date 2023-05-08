@@ -45,7 +45,7 @@ public abstract class Piece
 
     //=========================================================================================================//
     public boolean doesNewMovePutInCheck(int newX, int newY) {
-        if(this.getColor() == Color.WHITE) {
+        if (this.getColor() == Color.WHITE) {
             int oldX = this.getX();
             int oldY = this.getY();
             Color tempColor = this.getColor();
@@ -57,7 +57,7 @@ public abstract class Piece
             tile[newX][newY].getPiece().setColor(tempColor);
 
             // Check if the king is in check after the move
-            boolean isInCheck =whiteKing.IsinItCheck(tile);
+            boolean isInCheck = whiteKing.IsinItCheck(tile);
 
 
             // Reset the Piece's position and color
@@ -69,29 +69,29 @@ public abstract class Piece
             return isInCheck;
         }
         //==================================================================================//
-        else if(this.getColor() == Color.black)
-        {
+        else if (this.getColor() == Color.black) {
             int oldX = this.getX();
             int oldY = this.getY();
             Color tempColor = this.getColor();
-
+            Color my_color = tile[newX][newY].getColor();
             // Try the move
             this.setX(newX);
             this.setY(newY);
             this.setColor(null);
+            tile[newX][newY].getPiece().setColor(tempColor);
 
             // Check if the king is in check after the move
             boolean isInCheck = blackKing.IsinItCheck(tile);
 
 
-            // Reset the king's position and color
+            // Reset the Piece's position and color
             this.setX(oldX);
             this.setY(oldY);
             this.setColor(tempColor);
+            tile[newX][newY].getPiece().setColor(my_color);
+
             return isInCheck;
         }
-
-
         else return false;
     }
 

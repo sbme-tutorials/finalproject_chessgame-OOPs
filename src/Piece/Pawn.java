@@ -28,7 +28,7 @@ public class Pawn extends Piece {
                 if ((diff1 == 2 && diff2 == 0) || (diff1 == 1 && diff2 == 0))
                     return true;
             }
-            else if (((diff1 == 1 && diff2 == 1)  || (diff1 == 1 && diff2 == 0)))
+            else if ((diff1 == 1 && diff2 == 1) || (diff1 == 1 && diff2 == 0))
                 return true ;
             else
                 return false;
@@ -43,8 +43,6 @@ public class Pawn extends Piece {
         }
         return false;
     }
-
-
 
     @Override
     public String get_icon(Color color){

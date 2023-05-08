@@ -39,12 +39,12 @@ public class King extends Piece {
         outerloop:
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (tile[i][j].getPiece().isValidMove(whiteKing.getX(), whiteKing.getY())&& tile[i][j].getColor()==Color.black) {
-                    System.out.println(tile[i][j].getPiece() + " check white king");//change this with a msg on the interface
-                    return true;
-                } else if (tile[i][j].getPiece().isValidMove(blackKing.getX(), blackKing.getY())&&tile[i][j].getColor()==Color.white) {
-                    System.out.println(tile[i][j].getPiece() + " check black king");//change this with a msg on the interface
-                    return true;
+                if (tile[i][j].getPiece().isValidMove(this.getX(), this.getY())) {
+                    if (tile[i][j].getColor()==Color.BLACK && this.getColor() == Color.white
+                    || tile[i][j].getColor()==Color.white && this.getColor() == Color.black) {
+                        System.out.println(tile[i][j].getPiece() + " check king");//change this with a msg on the interface
+                        return true;
+                    }
                 }
             }
         }
