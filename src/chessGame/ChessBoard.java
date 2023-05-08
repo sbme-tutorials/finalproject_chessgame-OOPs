@@ -203,10 +203,12 @@ public class ChessBoard {
                     tile[i][j].setBackground(new java.awt.Color(0x57354b));
                 } else {
                     tile[i][j].setBackground(new java.awt.Color(0xedc3bb));
+
                 }
             }
-        }
-    }
+
+        }    }
+
     void ValidBackgrounds(int i, int j, Piece orginalPiece) {
        if (orginalPiece.isMoveValid(i, j)){
             if (fromButton.getColor() != tile[i][j].getColor()) {
@@ -229,13 +231,8 @@ public class ChessBoard {
             }
         }
     }
-
-
-
-
-
-
     public static JPanel getChessBoard() {
         return chessBoard;
     }
 }
+

@@ -15,13 +15,13 @@ public class Panel extends JPanel{
 	}
 }
 
-class Label extends JLabel{
-	Label(String text){		
+class Label extends JLabel {
+	Label(String text) {
 		this.setFont(new Font("Arial", Font.BOLD, 10));
 		this.setForeground(Color.white);
 		this.setText(text);
 		//this.setBackground(Color.WHITE);
-		
+
 	}
 
 }

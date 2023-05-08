@@ -1,8 +1,11 @@
 package chessGame;
 
+import log_in.Choose;
+
 public class Main {
 
 	public static void main(String[] args){
+
 
 		//*showing the game only*
 		//new GameView();
@@ -19,6 +22,7 @@ public class Main {
 		//*start from game setup*
 		//new Choose().Lastframe();
 		
+
 	}
 }
 
