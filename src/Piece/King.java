@@ -82,14 +82,6 @@ public class King extends Piece {
     }
 
     //==========================================================================//
-
-
-
-
-
-
-
-
     @Override
     public String get_icon(Color color){
         if (this.color == Color.white)
