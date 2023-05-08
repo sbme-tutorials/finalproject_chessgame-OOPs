@@ -1,6 +1,7 @@
 package Piece;
 
 import java.awt.*;
+import static chessGame.ChessBoard.tile;
 
 
 public class Queen extends Piece {
@@ -13,13 +14,18 @@ public class Queen extends Piece {
 
     @Override
     public boolean isValidMove(int newX, int newY) {
-        int diff1 = Math.abs(newX - getX());
-        int diff2 = Math.abs(newY - getY());
-        if ( (diff1==3 && diff2 == 2) || (diff1 == 2 && diff2 == 3) ) {
+    	int xDir = Integer.signum(newX - getX());
+        int yDir = Integer.signum(newY - getY());
+
+        // Check if there are pieces in the path
+        for (int i = getX() + xDir, j = getY() + yDir; i != newX || j != newY; i += xDir, j += yDir) {
+            if (i == 8 || j == 8||i<0||j<0)
+                return false;
+                if (tile[i][j].getPiece().getColor() != null) {
+                    return false;
+                }
+            }
             return true;
-        }
-        else
-            return false;
     }
     @Override
     public String get_icon(Color color){

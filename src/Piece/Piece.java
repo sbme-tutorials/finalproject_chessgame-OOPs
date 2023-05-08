@@ -11,7 +11,7 @@ public abstract class Piece
         Pawn,
         Knight,
         Queen,
-        Rock,
+        Rook,
         Bishop,
         King,
         Null

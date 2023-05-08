@@ -92,16 +92,29 @@ public class ChessBoard {
                                 // Switch turns after a successful move
                                 isWhiteTurn = !isWhiteTurn;
                                 fromButton = null;
+                                //=========================Updated===========================
+                                //stopping counter
+                                if(isWhiteTurn) { 
+                                	GameView.timerw.start();
+                                	GameView.timerb.stop();
+                                	//System.out.println("white turn.");
+                                }
+                                else {
+                                	GameView.timerw.stop();
+                                	GameView.timerb.start();
+                                	//System.out.println("black turn.");
+                                }
+                                //============================================================
                             }
                         }
                     }
-
                 }
             }
         });
     }
-
-
+    
+   
+    
     void showPieces() {
         // Black Pieces
         tile[0][0].setPiece(new Rook(Color.BLACK, 0, 0));
@@ -137,21 +150,44 @@ public class ChessBoard {
         }
     }
 
-    //=====================================================================================================================//
-    public void movePiece(Square fromButton, Square toButton) {
-
-        if (fromButton.getColor() != toButton.getColor()) {
-            // get the piece from frombutton and setting it to tobutton
-            toButton.setPiece(fromButton.getPiece());
-            Null noPiece = new Null(null, fromButton.getX(), fromButton.getY());  //generic null piece, this i equivalent to removing the piece from the
-            //original square
-            fromButton.setPiece(noPiece);
-        }
-    }
-
+//    =====================================================================================================================
+   	public void movePiece(Square fromButton, Square toButton) {
+   	 Null noPiece = new Null(null,fromButton.getX(), fromButton.getY()); //generic null piece, this i equivalent to remove
+   	 //original square the piece from the
+//King.getCastling()&&fromButton.getPiece().gettype()==Piece.type.King
+		if(fromButton.getPiece().gettype()==Piece.type.King&&toButton.getPiece().gettype()==Piece.type.Rook) {
+			System.out.println("callig castling function");
+			castling(fromButton, toButton);
+			System.out.println("castling");
+		}
+		else {
+			if (fromButton.getColor() != toButton.getColor()) { // get the piece from frombutton and setting it to tobutton
+				toButton.setPiece(fromButton.getPiece()); 
+				fromButton.setPiece(noPiece);
+				System.out.println("normal");
+			}
+		}
+   	}
+   	
+	private void castling(Square fromButton, Square toButton) {
+		Null noPieceFrom = new Null(null,fromButton.getX(), fromButton.getY());
+		Null noPieceTo = new Null(null,toButton.getX(), toButton.getY());
+		int dy = Integer.signum(toButton.getMyY() - fromButton.getMyY());
+		tile[fromButton.getMyX()][fromButton.getMyY()+2*dy].setPiece(fromButton.getPiece());
+		tile[fromButton.getMyX()][fromButton.getMyY()+1*dy].setPiece(toButton.getPiece());
+		fromButton.setPiece(noPieceFrom);
+		toButton.setPiece(noPieceTo);
+		King.setCastling(false);
+	 }
+	 
     void ValidBackgrounds(int i, int j, Piece orginalPiece) {
         if (orginalPiece.isValidMove(i, j)){
-            if (fromButton.getColor() != tile[i][j].getColor()) {
+            if ((fromButton.getColor() != tile[i][j].getColor())||(King.getCastling()&&tile[i][j].getPiece().gettype()==Piece.type.Rook
+            		&&fromButton.getColor() == tile[i][j].getColor())) {
+            	
+            	if(King.getCastling()&&tile[i][j].getPiece().gettype()==Piece.type.Rook
+            		)
+            		System.out.println("معايا طابية اما نشوف اخرتها");
                 tile[i][j].setBackground(Color.green);
                 tile[i][j].repaint();
             }

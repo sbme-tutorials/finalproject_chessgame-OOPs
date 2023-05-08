@@ -15,14 +15,9 @@ public class Bishop extends Piece {
     public boolean isValidMove(int newX, int newY) {
         int diff1 = Math.abs(newX - getX());
         int diff2 = Math.abs(newY - getY());
-        if ( diff1==diff2) {
-            if (diff1<=3) {return true;}
+        if (( (diff1==diff2)&&(diff1<=3))||((diff2==1)&&(diff1==0))) 
+             return true;
             else  return false;
-        }
-        else
-        {if ((Math.abs(diff1-diff2)==1)&&(diff2<=3)&&(diff1<=4||diff1<=2))
-        {return true;}
-        else return false;}
     }
     @Override
     public String get_icon(Color color){

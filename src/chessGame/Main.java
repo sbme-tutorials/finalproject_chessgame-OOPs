@@ -1,5 +1,7 @@
 package chessGame;
 
+import log_in.Choose;
+
 public class Main {
 
 	public static void main(String[] args){
@@ -14,10 +16,10 @@ public class Main {
 		//new historyOrPlayNow();
 		
 		//*start from the beginning of the game*
-		new welcomePage();
+		//new welcomePage();
 		
 		//*start from game setup*
-		//new Choose().Lastframe();
+		new Choose().Lastframe();
 		
 	}
 }

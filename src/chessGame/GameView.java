@@ -7,15 +7,29 @@ import javax.swing.border.Border;
 
 import log_in.Choose;
 public class GameView {
-    //public static void main(String[] args) 
+	//================================Updated====================================
+	static Counter timerw;
+	static Counter timerb;
 	{
     	JLabel player1, player2, score1, score2;
     	Label label1, label2, label3, label4, label5, label6, label7, label8, labela, labelb, labelc, labeld, labele, labelf, labelg, labelh;
 
+    	Panel panelW = new Panel();
+    	Panel panelB = new Panel();
+    	
+    	panelW.setBounds(470, 580, 80, 40);
+        panelB.setBounds(470, 15, 80, 40);
+    	
         Frame frame = new Frame();
-        new Counter().countdownTimer(0);
-        frame.add(Counter.p1());
-        frame.add(Counter.p2());
+        frame.add(panelB);
+        frame.add(panelW);
+        
+        timerw = new Counter(Choose.getTimer());
+        timerb = new Counter(Choose.getTimer());
+        
+        panelW.add(timerw.label);
+        panelB.add(timerb.label);
+        //=========================================================================
 
         //Aly's part
         player1 = new JLabel("Player1");
@@ -101,29 +115,29 @@ public class GameView {
 
         //this is a function for just the graphical interface
         class RoundBorder implements Border {
+        	private int radius;
 
-                private int radius;
+        	public RoundBorder(int radius) {
+        		this.radius = radius;
+            }
 
-                public RoundBorder(int radius) {
-                        this.radius = radius;
-                }
+        	@Override
+        	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        		g.setColor(Color.BLACK);
+        		g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+            }
 
-                @Override
-                public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                        g.setColor(Color.BLACK);
-                        g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
-                }
+        	@Override
+        	public Insets getBorderInsets(Component c) {
+        		return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
+            }
 
-                @Override
-                public Insets getBorderInsets(Component c) {
-                        return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
-                }
-
-                @Override
-                public boolean isBorderOpaque() {
-                        return true;
-                }
-    }}
+        	@Override
+        	public boolean isBorderOpaque() {
+        		return true;
+            }
+      }
+}
 
 
 
