@@ -37,7 +37,7 @@ public abstract class Piece
     }
     public boolean isMoveValid(int newX, int newY)//should be implemented in each piece
     {
-       if(isValidMove(newX,newY))
+       if(isValidMove(newX,newY) && this.getColor() != tile[newX][newY].getColor())
            return !doesNewMovePutInCheck(newX,newY);
        else return false;
     }
@@ -119,55 +119,7 @@ public abstract class Piece
         return type;
     }
 
-    public boolean CanGetKingOutofCheck(King king) {
-        int oldX = this.getX();
-        int oldY = this.getY();
 
-        // Get the army color of the king
-        Color armyColor = king.getColor();
-
-        // Simulate all possible moves of the army's pieces
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                Piece piece = tile[i][j].getPiece();
-                if (piece.getColor() == armyColor) {
-                    // Check if the piece can move to get the king out of check
-                    for (int x = 0; x < 8; x++) {
-                        for (int y = 0; y < 8; y++) {
-                            if (piece.isValidMove(x, y)) {
-                                // Try the move
-                                int pieceOldX = piece.getX();
-                                int pieceOldY = piece.getY();
-                                Color pieceOldColor = piece.getColor();
-                                piece.setX(x);
-                                piece.setY(y);
-                                piece.setColor(null);
-
-                                // Check if the king is out of check
-                                if (!king.IsinItCheck(tile)) {
-                                    // Reset the piece's position and return true
-                                    piece.setX(pieceOldX);
-                                    piece.setY(pieceOldY);
-                                    piece.setColor(pieceOldColor);
-                                    return true;
-                                }
-
-                                // Reset the piece's position
-                                piece.setX(pieceOldX);
-                                piece.setY(pieceOldY);
-                                piece.setColor(pieceOldColor);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Reset the king's position and return false
-        this.setX(oldX);
-        this.setY(oldY);
-        return false;
-    }
     public boolean canCastle (int newX,int newY) {
         if (this instanceof King) {
             if (tile[newX][newY].getPiece() instanceof Rook) {
@@ -203,6 +155,7 @@ public abstract class Piece
             return false;
 
         }
+
 
 
     public boolean getisMoved(){

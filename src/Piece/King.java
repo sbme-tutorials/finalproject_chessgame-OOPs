@@ -26,7 +26,7 @@ public class King extends Piece {
         boolean chek3 = (diff2 == 1 && diff1 == 1);
         // remember to add another check to avoid kings being next to each other
 
-        if ((check1 || check2 || chek3 || this.canCastle(newX,newY))&& !this.doesNewMovePutInCheck(newX,newY) ) {
+        if ((check1 || check2 || chek3 || this.canCastle(newX,newY))&& doesNewMovePutInCheck(newX,newY)) {
 
             return true;
         }
@@ -40,8 +40,8 @@ public class King extends Piece {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (tile[i][j].getPiece().isValidMove(this.getX(), this.getY())) {
-                    if (tile[i][j].getColor()==Color.BLACK && this.getColor() == Color.white
-                    || tile[i][j].getColor()==Color.white && this.getColor() == Color.black) {
+                    if (tile[i][j].getColor()==Color.BLACK && this == whiteKing
+                    || tile[i][j].getColor()==Color.white && this ==blackKing) {
                         System.out.println(tile[i][j].getPiece() + " check king");//change this with a msg on the interface
                         return true;
                     }
@@ -50,44 +50,10 @@ public class King extends Piece {
         }
         return false;
     }
-    public boolean CanGetOutofCheck(King king) {
-        int oldX = this.getX();
-        int oldY = this.getY();
 
-        // Simulate all possible moves of the king
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (this.isValidMove(i, j)) {
-                    if (this.getColor() != tile[i][j].getColor()) {
-                        // Try the move
-                        this.setX(i);
-                        this.setY(j);
 
-                        // Check if the king is out of check
-                        if (!this.IsinItCheck(tile)) {
-                            // Reset the king's position and return true
-                            this.setX(oldX);
-                            this.setY(oldY);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Reset the king's position and return false
-        king.setX(oldX);
-        king.setY(oldY);
-        return false;
-    }
 
     //==========================================================================//
-
-
-
-
-
-
 
 
     @Override

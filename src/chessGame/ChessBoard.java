@@ -85,16 +85,23 @@ public class ChessBoard {
                                 //========================================
                                 movePiece(fromButton, toButton);
                                 //========================================  end Game   ===================================//
-                                if (whiteKing.IsinItCheck(tile) && !whiteKing.CanGetKingOutofCheck(whiteKing))
+                                if (whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing))
+                                {
                                     System.out.println("GAME OVER BLACK WINS");
-                               // disableAllSquares();}
-                                if (blackKing.IsinItCheck(tile) && !blackKing.CanGetKingOutofCheck(blackKing))
+                                    disableAllSquares();}
+                                if (blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)){
                                     System.out.println("GAME OVER White WINS");
-                               // disableAllSquares();}
-                                if (!whiteKing.IsinItCheck(tile) && !whiteKing.CanGetKingOutofCheck(whiteKing))
+                               disableAllSquares();}
+                                if (!whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing)){
                                     System.out.println("GAME OVER STALEMATE");
-                                if (!blackKing.IsinItCheck(tile) && !blackKing.CanGetKingOutofCheck(blackKing))
+                                disableAllSquares();}
+                                if (!blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)){
                                     System.out.println("GAME OVER STALEMATE");
+                                disableAllSquares();}
+                                if (Stalemate()){
+                                    System.out.println("GAME OVER STALEMATE");
+                                    disableAllSquares();
+                                }
                                 //=========================================
                                 // Switch turns after a successful move
                                 isWhiteTurn = !isWhiteTurn;
@@ -168,6 +175,7 @@ public class ChessBoard {
                 toButton.setPiece(fromButton.getPiece());
                 Null noPiece = new Null(null, fromButton.getX(), fromButton.getY());  //generic null piece, this i equivalent to removing the piece from the
                 //original square
+                toButton.getPiece().setMoved(true);
                 fromButton.setPiece(noPiece);
             }
         }
@@ -175,25 +183,39 @@ public class ChessBoard {
     public void Castling (Piece king , Piece rook) {
         if (king.getisMoved() == false && rook.getisMoved() == false) {
 
+
             // in casteling they re on the same horizontal level , they have same x
             int oldKingX = king.getX();
             int oldKingY = king.getY();
             int oldRookX = rook.getX();
             int oldRookY = rook.getY();
             int sign = Integer.signum(rook.getY() - king.getY());
-            if (Math.abs(oldKingY - oldRookY) == 3) {
-                tile[oldKingX][oldKingY + 2 * sign].setPiece(king);
-                tile[oldKingX][oldKingY].setPiece(new Null(null, oldKingX, oldKingY));
-                tile[oldRookX][oldRookY - 2 * sign].setPiece(rook);
-                tile[oldRookX][oldRookY].setPiece(new Null(null, oldRookX, oldRookY));
-            } else {
-                tile[oldKingX][oldKingY + 2 * sign].setPiece(king);
-                tile[oldKingX][oldKingY].setPiece(new Null(null, oldKingX, oldKingY));
-                tile[oldRookX][oldRookY - 3 * sign].setPiece(rook);
-                tile[oldRookX][oldRookY].setPiece(new Null(null, oldRookX, oldRookY));
+            if (Math.abs(oldKingY - oldRookY) == 3)
+            {
+                if (!king.doesNewMovePutInCheck(oldKingX,oldKingY + 2 * sign) )
+                {
+                    tile[oldKingX][oldKingY + 2 * sign].setPiece(king);
+                    tile[oldKingX][oldKingY].setPiece(new Null(null, oldKingX, oldKingY));
+                    tile[oldRookX][oldRookY - 2 * sign].setPiece(rook);
+                    tile[oldRookX][oldRookY].setPiece(new Null(null, oldRookX, oldRookY));
+                }
+                 else isWhiteTurn = !isWhiteTurn;
+            }
+            else if((Math.abs(oldKingY - oldRookY) == 4)) {
+                if (!king.doesNewMovePutInCheck(oldKingX, oldKingY + 2 * sign)) {
+                    {
+                        tile[oldKingX][oldKingY + 2 * sign].setPiece(king);
+                        tile[oldKingX][oldKingY].setPiece(new Null(null, oldKingX, oldKingY));
+                        tile[oldRookX][oldRookY - 3 * sign].setPiece(rook);
+                        tile[oldRookX][oldRookY].setPiece(new Null(null, oldRookX, oldRookY));
+                    }
+                }
+               else  isWhiteTurn = !isWhiteTurn;
+            }
+
             }
         }
-    }
+
 
     //=======================================     Color      =================================================================//
     public void resetBackground() {
@@ -228,6 +250,81 @@ public class ChessBoard {
                 tile[i][j].setEnabled(false);
             }
         }
+    }
+    //=================================================================//
+    public boolean CanGetKingOutofCheck(King king) {
+        // Get the army color of the king
+        Color armyColor = king.getColor();
+
+        // Simulate all possible moves of the army's pieces
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Piece piece = tile[i][j].getPiece();
+                if (piece.getColor() == armyColor) {
+                    // Check if the piece can move to get the king out of check
+                    for (int x = 0; x < 8; x++) {
+                        for (int y = 0; y < 8; y++) {
+                            if (piece.isMoveValid(x, y)) {
+                                // Try the move
+                                int pieceOldX = piece.getX();
+                                int pieceOldY = piece.getY();
+                                Color pieceOldColor = piece.getColor();
+                                Color my_color = tile[x][y].getColor();
+                                piece.setX(x);
+                                piece.setY(y);
+                                piece.setColor(null);
+                                tile[x][y].getPiece().setColor(pieceOldColor);
+
+                                // Check if the king is out of check
+                                if (!king.IsinItCheck(tile)) {
+                                    // Reset the piece's position and return true
+                                    piece.setX(pieceOldX);
+                                    piece.setY(pieceOldY);
+                                    piece.setColor(pieceOldColor);
+                                    tile[x][y].getPiece().setColor(my_color);
+                                    return true;
+                                }
+
+                                // Reset the piece's position
+                                piece.setX(pieceOldX);
+                                piece.setY(pieceOldY);
+                                piece.setColor(pieceOldColor);
+                                tile[x][y].getPiece().setColor(my_color);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //========================================================================//
+    public boolean Stalemate() {
+        int sum = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (!(tile[i][j].getPiece() instanceof  Null)){
+                    sum ++;
+                }
+            }
+        }
+        if (sum == 2)
+            return true;
+        if (sum ==3 )
+        {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (tile[i][j].getPiece() instanceof Bishop
+                            || tile[i][j].getPiece() instanceof Knight) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+
     }
 
 

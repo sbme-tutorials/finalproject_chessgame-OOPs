@@ -1,12 +1,10 @@
 package chessGame;
 
-import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-
-import log_in.Choose;
+import java.awt.*;
 public class GameView {
+    public String s2 = "0";
     //public static void main(String[] args) 
 	{
     	JLabel player1, player2, score1, score2;
@@ -27,7 +25,7 @@ public class GameView {
         score1 = new JLabel("0");
         score1.setFont(new Font("Arial",Font.BOLD,18));
         score1.setForeground(new Color(0x57354b));
-        score2 = new JLabel("0");
+        score2 = new JLabel(s2);
         score2.setFont(new Font("Arial",Font.BOLD,18));
         score2.setForeground(new Color(0x57354b));
         label1 = new Label("1");
