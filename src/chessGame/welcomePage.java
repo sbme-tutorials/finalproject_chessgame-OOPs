@@ -6,6 +6,8 @@ import javax.swing.*;
 
 
 public class welcomePage implements ActionListener {
+	
+	static boolean user = false;
 	// frame
 	Frame f = new Frame();
 	// label to display text
@@ -24,7 +26,7 @@ public class welcomePage implements ActionListener {
 		l.setText("Welcome to the game!");
 		l.setBounds(220, 200, 350, 35); //Setting the bounds of the label.
 		l.setFont(new Font("Arial", Font.BOLD, 24));
-		l.setForeground(Color.WHITE);
+		l.setForeground(new Color(0x57354b));
 
 		button1.addActionListener(this);
 		button1.setBounds(170, 340, 150, 40);
@@ -49,11 +51,15 @@ public class welcomePage implements ActionListener {
 
 		if (e.getSource() == button1) {
 			f.dispose();
+			user = true;
 			new LoginPage(new IDandPassword().getLoginInfo());
 		} else if (e.getSource() == button2) {
 			f.dispose();
 			new GameView();
 		}
+	}
+	public static boolean getUser() {
+		return user;
 	}
 }
 

@@ -30,33 +30,24 @@ public class GameView {
         panelW.add(timerw.label);
         panelB.add(timerb.label);
 
-        //Nouran's part
-		/*
-		 * Panel timer1 = new Panel(); Panel timer2 = new Panel(); Label label_1 = new
-		 * Label("00:00"); Label label_2 = new Label("00:00");
-		 * 
-		 * label_1.setFont(new Font("Arial",Font.BOLD,24)); label_2.setFont(new
-		 * Font("Arial",Font.BOLD,24));
-		 */
-        
-		/*
-		 * frame.add(timer1); timer1.setBounds(470, 15, 80, 40); timer1.add(label_1);
-		 * frame.add(timer2); timer2.setBounds(470, 580, 80, 40); timer2.add(label_2);
-		 */
         
         //Aly's part
-        player1 = new JLabel("Player1");
-        player1.setFont(new Font("Arial",Font.BOLD,18));
-        player1.setForeground(Color.WHITE);
+        if(welcomePage.getUser()) 
+        	player1 = new JLabel(LoginPage.getName());
+        else 
+        	player1 = new JLabel("Player1");
+        
+        player1.setFont(new Font("Arial",Font.BOLD,20));
+        player1.setForeground(new Color(0x57354b));
         player2 = new JLabel("Player2");
-        player2.setFont(new Font("Arial",Font.BOLD,18));
-        player2.setForeground(Color.WHITE);
+        player2.setFont(new Font("Arial",Font.BOLD,20));
+        player2.setForeground(new Color(0x57354b));
         score1 = new JLabel("0");
         score1.setFont(new Font("Arial",Font.BOLD,18));
-        score1.setForeground(Color.WHITE);
+        score1.setForeground(new Color(0x57354b));
         score2 = new JLabel("0");
         score2.setFont(new Font("Arial",Font.BOLD,18));
-        score2.setForeground(Color.WHITE);
+        score2.setForeground(new Color(0x57354b));
         label1 = new Label("1");
         label2 = new Label("2");
         label3 = new Label("3");

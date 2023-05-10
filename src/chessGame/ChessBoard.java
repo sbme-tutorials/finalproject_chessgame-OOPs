@@ -83,11 +83,16 @@ public class ChessBoard {
                             if (isItValid)
                             {
                                 resetBackground();
-                                //========================================
+                                //======================================== 
+                                // chech if the move is for promotion or not
                                 if(Pawn.getPromotion()&&(fromButton.getMyX()==1||fromButton.getMyX()==6)) {
                                 	promotion(fromButton,toButton);
                                 	Pawn.setPromotion(false);
                                 	}
+                                else if(Pawn.getPassent()) {
+                                	enPassent(fromButton,toButton);
+                                	Pawn.setPassent(false);
+                                }
                                 else
                                 	movePiece(fromButton, toButton);
                                 //========================================  end Game   ===================================//
@@ -298,6 +303,16 @@ public class ChessBoard {
                 fromButton.setPiece(noPiece);
                 break;}
         		}
-    }    
+    }
+    //============================================= en passent ====================================================================
+    private void enPassent(Square fromButton, Square toButton) {
+    	int dx = Integer.signum(toButton.getMyX()-fromButton.getMyX());
+    	int dy = Integer.signum(toButton.getMyY()-fromButton.getMyY());
+    	Null noPiece = new Null(null, fromButton.getMyX(), fromButton.getMyY());
+    	toButton.setPiece(fromButton.getPiece());
+    	fromButton.setPiece(noPiece);
+    	tile[fromButton.getMyX()][fromButton.getMyY()+dy].setPiece(new Null(null, fromButton.getMyX()+dx, fromButton.getMyY()+dy));
+    	
+    }
 }
 
