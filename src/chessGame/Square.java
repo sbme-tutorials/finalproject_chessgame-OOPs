@@ -1,8 +1,9 @@
 package chessGame;
-import Piece.*;
+
+import Piece.Piece;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Square extends JButton
 {
@@ -13,8 +14,6 @@ public class Square extends JButton
         this.x = x;
         this.y = y;
         this.p=p;
-
-        resetBackground();
         if (p != null)
             setPiece(p);
     }
@@ -33,16 +32,6 @@ public class Square extends JButton
     {
         return p.getColor();
     }
-
-    public void resetBackground() {
-        if ((x + y) % 2 != 0) {
-            setBackground(new java.awt.Color(0x57354b));
-        } else {
-            setBackground(new java.awt.Color(0xedc3bb));
-        }
-    }
-
-
 
     public int getMyY() // please don't change the naming to getY bcz it overrides the functions at javax.swing.JPanel
         //and creates errors drawing squares

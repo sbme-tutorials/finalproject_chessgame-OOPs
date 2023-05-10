@@ -1,11 +1,8 @@
 package chessGame;
 
-import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-
-import log_in.Choose;
+import java.awt.*;
 public class GameView {
 	//================================Updated====================================
 	static Counter timerw;
@@ -41,7 +38,7 @@ public class GameView {
         score1 = new JLabel("0");
         score1.setFont(new Font("Arial",Font.BOLD,18));
         score1.setForeground(new Color(0x57354b));
-        score2 = new JLabel("0");
+        score2 = new JLabel(s2);
         score2.setFont(new Font("Arial",Font.BOLD,18));
         score2.setForeground(new Color(0x57354b));
         label1 = new Label("1");

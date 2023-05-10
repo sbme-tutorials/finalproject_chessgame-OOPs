@@ -11,9 +11,17 @@ public class Null extends Piece
     {
             return false;
     }
+
+
+
     @Override
     public String get_icon(Color color)
     {
         return "";
     }
+    @Override
+    public type gettype() {
+        return type.Null;
+    }
+
 }
