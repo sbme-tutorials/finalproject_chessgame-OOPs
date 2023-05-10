@@ -84,23 +84,39 @@ public class ChessBoard {
                                 resetBackground();
                                 //========================================
                                 movePiece(fromButton, toButton);
+                                boolean endgame = false;
                                 //========================================  end Game   ===================================//
                                 if (whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing))
                                 {
                                     System.out.println("GAME OVER BLACK WINS");
-                                    disableAllSquares();}
+                                    disableAllSquares();
+                                    GameView.timerw.stop();
+                                    GameView.timerb.stop();
+                                    endgame = true;}
                                 if (blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)){
                                     System.out.println("GAME OVER White WINS");
-                               disableAllSquares();}
+                                    GameView.timerw.stop();
+                                    GameView.timerb.stop();
+                                    disableAllSquares();
+                                    endgame = true;}
                                 if (!whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing)){
                                     System.out.println("GAME OVER STALEMATE");
-                                disableAllSquares();}
+                                disableAllSquares();
+                                GameView.timerw.stop();
+                                GameView.timerb.stop();
+                                endgame = true;}
                                 if (!blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)){
                                     System.out.println("GAME OVER STALEMATE");
-                                disableAllSquares();}
+                                disableAllSquares();
+                                GameView.timerw.stop();
+                                GameView.timerb.stop();
+                                endgame = true;}
                                 if (Stalemate()){
                                     System.out.println("GAME OVER STALEMATE");
                                     disableAllSquares();
+                                    GameView.timerw.stop();
+                                    GameView.timerb.stop();
+                                    endgame = true;
                                 }
                                 //=========================================
                                 // Switch turns after a successful move
@@ -108,6 +124,7 @@ public class ChessBoard {
                                 fromButton = null;
                                 //=========================Updated===========================
                                 //stopping counter
+                                if(!endgame) {
                                 if(isWhiteTurn) { 
                                 	GameView.timerw.start();
                                 	GameView.timerb.stop();
@@ -117,7 +134,7 @@ public class ChessBoard {
                                 	GameView.timerw.stop();
                                 	GameView.timerb.start();
                                 	//System.out.println("black turn.");
-                                }
+                                }}
                                 //============================================================
                             }
                         }
