@@ -1,6 +1,7 @@
 package Piece;
 
 import java.awt.*;
+import static chessGame.ChessBoard.tile;
 
 import static chessGame.ChessBoard.tile;
 

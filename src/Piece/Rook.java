@@ -33,10 +33,9 @@ public class Rook extends Piece {
             }
 isMovedR = true;
             return true;
-        }
 
-
-
+	}
+        
     @Override
     public String get_icon(Color color){
         if (this.color == Color.white)

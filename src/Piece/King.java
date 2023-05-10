@@ -23,16 +23,18 @@ public class King extends Piece {
 
         boolean check1 = (diff1 == 0 && diff2 == 1);
         boolean check2 = (diff2 == 0 && diff1 == 1);
-        boolean chek3 = (diff2 == 1 && diff1 == 1);
+        boolean check3 = (diff2 == 1 && diff1 == 1);
+        
         // remember to add another check to avoid kings being next to each other
 
-        if ((check1 || check2 || chek3 || this.canCastle(newX,newY))&& !this.doesNewMovePutInCheck(newX,newY) ) {
+        if ((check1 || check2 || check3 || this.canCastle(newX,newY))&& doesNewMovePutInCheck(newX,newY)) {
 
             return true;
         }
 
         else
             return false;
+
     }
     public boolean IsinItCheck(Square[][] tile) {//this function checks if any piece can check the king
         //tile[i][j] is the one attacking the king
@@ -50,38 +52,10 @@ public class King extends Piece {
         }
         return false;
     }
-    public boolean CanGetOutofCheck(King king) {
-        int oldX = this.getX();
-        int oldY = this.getY();
 
-        // Simulate all possible moves of the king
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (this.isValidMove(i, j)) {
-                    if (this.getColor() != tile[i][j].getColor()) {
-                        // Try the move
-                        this.setX(i);
-                        this.setY(j);
-
-                        // Check if the king is out of check
-                        if (!this.IsinItCheck(tile)) {
-                            // Reset the king's position and return true
-                            this.setX(oldX);
-                            this.setY(oldY);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Reset the king's position and return false
-        king.setX(oldX);
-        king.setY(oldY);
-        return false;
-    }
 
     //==========================================================================//
+
     @Override
     public String get_icon(Color color){
         if (this.color == Color.white)

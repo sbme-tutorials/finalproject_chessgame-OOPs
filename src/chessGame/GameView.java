@@ -7,7 +7,8 @@ import log_in.Choose;
 
 import java.awt.*;
 public class GameView {
-    //public static void main(String[] args) 
+	//================================Updated====================================
+
 	static Counter timerw;
 	static Counter timerb;
 	{
@@ -29,6 +30,9 @@ public class GameView {
         
         panelW.add(timerw.label);
         panelB.add(timerb.label);
+
+        //=========================================================================
+
 
         
         //Aly's part
@@ -120,29 +124,29 @@ public class GameView {
 
         //this is a function for just the graphical interface
         class RoundBorder implements Border {
+        	private int radius;
 
-                private int radius;
+        	public RoundBorder(int radius) {
+        		this.radius = radius;
+            }
 
-                public RoundBorder(int radius) {
-                        this.radius = radius;
-                }
+        	@Override
+        	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        		g.setColor(Color.BLACK);
+        		g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+            }
 
-                @Override
-                public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                        g.setColor(Color.BLACK);
-                        g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
-                }
+        	@Override
+        	public Insets getBorderInsets(Component c) {
+        		return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
+            }
 
-                @Override
-                public Insets getBorderInsets(Component c) {
-                        return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
-                }
-
-                @Override
-                public boolean isBorderOpaque() {
-                        return true;
-                }
-    }}
+        	@Override
+        	public boolean isBorderOpaque() {
+        		return true;
+            }
+      }
+}
 
 
 

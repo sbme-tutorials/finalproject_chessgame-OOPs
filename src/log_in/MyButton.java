@@ -17,6 +17,7 @@ public class MyButton extends JButton {
         // Make the button transparent so that only the border is visible
         setOpaque(false);
         setContentAreaFilled(false);
+        
     }
 
     @Override
