@@ -85,7 +85,7 @@ public class ChessBoard {
                                 resetBackground();
 
                                 //======================================== 
-                                // chech if the move is for promotion or not
+                                // check if the move is for promotion or not
                                 if(Pawn.getPromotion()&&(fromButton.getMyX()==1||fromButton.getMyX()==6)) {
                                 	promotion(fromButton,toButton);
                                 	Pawn.setPromotion(false);
@@ -97,35 +97,30 @@ public class ChessBoard {
                                 else
                                 	movePiece(fromButton, toButton);
 
-                                //========================================
-                                movePiece(fromButton, toButton);
-                                boolean endgame = false;
                                 //========================================  end Game   ===================================//
-                                if (whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing))
-                                {
+                                boolean endgame = false;
+                                if (whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing)||GameView.timerw.getEnd()){
                                     System.out.println("GAME OVER BLACK WINS");
                                     disableAllSquares();
-                                    GameView.timerw.stop();
                                     GameView.timerb.stop();
                                     endgame = true;}
-                                if (blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)){
+                                if (blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)||GameView.timerb.getEnd()){
                                     System.out.println("GAME OVER White WINS");
                                     GameView.timerw.stop();
-                                    GameView.timerb.stop();
                                     disableAllSquares();
                                     endgame = true;}
                                 if (!whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing)){
                                     System.out.println("GAME OVER STALEMATE");
-                                disableAllSquares();
-                                GameView.timerw.stop();
-                                GameView.timerb.stop();
-                                endgame = true;}
+	                                disableAllSquares();
+	                                GameView.timerw.stop();
+	                                GameView.timerb.stop();
+	                                endgame = true;}
                                 if (!blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)){
                                     System.out.println("GAME OVER STALEMATE");
-                                disableAllSquares();
-                                GameView.timerw.stop();
-                                GameView.timerb.stop();
-                                endgame = true;}
+	                                disableAllSquares();
+	                                GameView.timerw.stop();
+	                                GameView.timerb.stop();
+	                                endgame = true;}
                                 if (Stalemate()){
                                     System.out.println("GAME OVER STALEMATE");
                                     disableAllSquares();
@@ -143,12 +138,10 @@ public class ChessBoard {
                                 if(isWhiteTurn) { 
                                 	GameView.timerw.start();
                                 	GameView.timerb.stop();
-                                	//System.out.println("white turn.");
                                 }
                                 else {
                                 	GameView.timerw.stop();
                                 	GameView.timerb.start();
-                                	//System.out.println("black turn.");
                                 }}
                                 //============================================================
                             }
@@ -169,17 +162,6 @@ public class ChessBoard {
                                 fromButton = null;
                             }
                         }
-                    }
-                  //stopping counter
-                    if(isWhiteTurn) { 
-                    	GameView.timerw.start();
-                    	GameView.timerb.stop();
-                    	//System.out.println("white turn.");
-                    }
-                    else {
-                    	GameView.timerw.stop();
-                    	GameView.timerb.start();
-                    	//System.out.println("black turn.");
                     }
 
                 }
@@ -287,7 +269,8 @@ public class ChessBoard {
                 }
             }
 
-        }    }
+        }   
+     }
 
     void ValidBackgrounds(int i, int j, Piece orginalPiece) {
        if (orginalPiece.isMoveValid(i, j)){
@@ -360,7 +343,7 @@ public class ChessBoard {
 
         return false;
     }
-
+    
     //========================================================================//
     public boolean Stalemate() {
         int sum = 0;

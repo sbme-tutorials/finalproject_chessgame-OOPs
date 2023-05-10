@@ -42,8 +42,8 @@ public class King extends Piece {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (tile[i][j].getPiece().isValidMove(this.getX(), this.getY())) {
-                    if (tile[i][j].getColor()==Color.BLACK && this.getColor() == Color.white
-                    || tile[i][j].getColor()==Color.white && this.getColor() == Color.black) {
+                    if (tile[i][j].getColor()==Color.BLACK && this == whiteKing
+                    || tile[i][j].getColor()==Color.white && this ==blackKing) {
                         System.out.println(tile[i][j].getPiece() + " check king");//change this with a msg on the interface
                         return true;
                     }

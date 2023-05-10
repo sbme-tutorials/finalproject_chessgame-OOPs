@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import javax.swing.Timer;
 
 public class Counter{
-
+	boolean end = false;
 	Label label = new Label("");
     
     Timer timer; // timer object
@@ -48,6 +48,7 @@ public class Counter{
 
        		// exit condition
        		if(min==0 && second==0) {
+       			end = true;
        			timer.stop();
             }	
        		if(min<0) {
@@ -62,5 +63,8 @@ public class Counter{
 	}
 	public void start() {
 		timer.start();
+	}
+	public boolean getEnd() {
+		return end;
 	}
 }

@@ -48,7 +48,6 @@ public class Pawn extends Piece {
             		||(diff2==1 && diff1==1 && tile[getX()+dx][getY()+dy].getColor()==Color.WHITE)
             		||(diff2==1 && diff1==1 && firstMoveW && tile[getX()][getY()+dy].getColor()==Color.white)) {
             	if((diff2==1 && diff1==1 && firstMoveW &&tile[getX()][getY()+dy].getColor()==Color.white)) {
-            		System.out.println("ana truueeeee");
             		enPassent = true;
             		firstMoveW=false;}
             	if(newX == 7)
@@ -75,7 +74,6 @@ public class Pawn extends Piece {
             else if ((diff1 == -1 && diff2 == 0)
             		||(diff2==1&&diff1==-1&&tile[getX()+dx][getY()+dy].getColor()==Color.BLACK)) {
         		firstMoveW=false;
-            	System.out.println(firstMoveW);
             	if(newX == 0)
             		isPromoted = true;
             	return true ;
