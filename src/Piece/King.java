@@ -27,7 +27,7 @@ public class King extends Piece {
         
         // remember to add another check to avoid kings being next to each other
 
-        if ((check1 || check2 || check3 || this.canCastle(newX,newY))&& doesNewMovePutInCheck(newX,newY)) {
+        if ((check1 || check2 || check3 || this.canCastle(newX,newY))) {
 
             return true;
         }

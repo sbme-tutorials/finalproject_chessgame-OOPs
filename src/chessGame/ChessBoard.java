@@ -1,5 +1,6 @@
 package chessGame;
 import Piece.*;
+import static Piece.King.CanGetKingOutofCheck;
 import log_in.Choose;
 
 import javax.swing.*;
@@ -126,7 +127,7 @@ public class ChessBoard {
 
                                 //========================================  end Game   ===================================//
                                 
-                                if (whiteKing.IsinItCheck(tile) && !King.CanGetKingOutofCheck(whiteKing)||GameView.timerw.getEnd()){
+                                if (whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing)||GameView.timerw.getEnd()){
                                     //System.out.println("GAME OVER BLACK WINS");
                                     disableAllSquares();
                                     GameView.timerb.stop();
@@ -137,7 +138,7 @@ public class ChessBoard {
                                     status = Choose.getOppo()+","+Choose.getColor()+","+"Black"+","+Counter.getTime();
                                     Player.WriteToFile(status);}
                                     }
-                                if (blackKing.IsinItCheck(tile) && !King.CanGetKingOutofCheck(blackKing)||GameView.timerb.getEnd()){
+                                if (blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)||GameView.timerb.getEnd()){
                                     //System.out.println("GAME OVER White WINS");
                                     GameView.timerw.stop();
                                     disableAllSquares();
@@ -148,7 +149,7 @@ public class ChessBoard {
                                     status = Choose.getOppo()+","+Choose.getColor()+","+"White"+","+Counter.getTime();
                                     Player.WriteToFile(status);}
                                 }
-                                if (!whiteKing.IsinItCheck(tile) && !King.CanGetKingOutofCheck(whiteKing)){
+                                if (!whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing)){
                                     //System.out.println("GAME OVER STALEMATE");
 	                                disableAllSquares();
 	                                GameView.timerw.stop();
@@ -450,7 +451,7 @@ public class ChessBoard {
     
     //==============================================Promotion===========================================================//
     private void promotion(Square fromButton, Square toButton) {
-    	ImageIcon logo = new ImageIcon("chessGame/1_deliverabless/Pro.PNG");
+    	ImageIcon logo = new ImageIcon("1_deliverabless/Pro1.PNG");
     	Null noPiece = new Null(null, fromButton.getX(), fromButton.getY());
         Object[] options = {"Queen", "Rook", "Bishop", "Knight"};
         int choice = JOptionPane.showOptionDialog(
