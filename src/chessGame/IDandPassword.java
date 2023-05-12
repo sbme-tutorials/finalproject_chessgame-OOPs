@@ -8,6 +8,9 @@ public class IDandPassword {
     IDandPassword() {
         logininfo.put("eman", "123456");
         logininfo.put("nouran", "123456");
+        logininfo.put("nada", "123456");
+        logininfo.put("ali", "123456");
+        logininfo.put("mina", "123456");
 
     }
 

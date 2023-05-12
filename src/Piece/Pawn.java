@@ -1,3 +1,4 @@
+
 package Piece;
 
 import static chessGame.ChessBoard.tile;
@@ -35,21 +36,14 @@ public class Pawn extends Piece {
                 if ((diff1 == 2 && diff2 == 0)
                 		||(diff1 == 1 && diff2 == 0)
                 		||(diff2==1 && diff1==1 && tile[getX()+dx][getY()+dy].getColor()==Color.WHITE)) {
-
                 	if(diff1 == 2)
                 		if(tile[getX()+1][getY()].getPiece().getColor()!=null)
                 			return false;
-                		else 
-                			firstMoveB = true;
                 	return true;
                 }
             }
             else if ((diff1 == 1 && diff2 == 0)
-            		||(diff2==1 && diff1==1 && tile[getX()+dx][getY()+dy].getColor()==Color.WHITE)
-            		||(diff2==1 && diff1==1 && firstMoveW && tile[getX()][getY()+dy].getColor()==Color.white)) {
-            	if((diff2==1 && diff1==1 && firstMoveW &&tile[getX()][getY()+dy].getColor()==Color.white)) {
-            		enPassent = true;
-            		firstMoveW=false;}
+            		||(diff2==1 && diff1==1 && tile[getX()+dx][getY()+dy].getColor()==Color.WHITE)) {
             	if(newX == 7)
             		isPromoted = true;
             	return true ;
@@ -62,18 +56,14 @@ public class Pawn extends Piece {
                 if ((diff1 == -2 && diff2 == 0)
                 		|| (diff1 == -1 && diff2 == 0)
                 		||(diff2==1&&diff1==-1&&tile[getX()+dx][getY()+dy].getColor()==Color.BLACK)) {
-                	
                 	if(diff1 == -2)
 	                	if(tile[getX()-1][getY()].getPiece().getColor()!=null)
 	            			return false;
-	                	else {
-                			firstMoveW = true;}
                 	return true;
                 }
             }
             else if ((diff1 == -1 && diff2 == 0)
             		||(diff2==1&&diff1==-1&&tile[getX()+dx][getY()+dy].getColor()==Color.BLACK)) {
-        		firstMoveW=false;
             	if(newX == 0)
             		isPromoted = true;
             	return true ;

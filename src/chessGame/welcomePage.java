@@ -6,7 +6,7 @@ import javax.swing.*;
 
 
 public class welcomePage implements ActionListener {
-	
+	static GameView game;
 	static boolean user = false;
 	// frame
 	Frame f = new Frame();
@@ -53,13 +53,18 @@ public class welcomePage implements ActionListener {
 			f.dispose();
 			user = true;
 			new LoginPage(new IDandPassword().getLoginInfo());
-		} else if (e.getSource() == button2) {
+		}
+		else if (e.getSource() == button2) {
 			f.dispose();
-			new GameView();
+			user = false;
+			game = new GameView();
 		}
 	}
 	public static boolean getUser() {
 		return user;
+	}
+	public static void disp() {
+		game.dispose();
 	}
 }
 

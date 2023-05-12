@@ -16,11 +16,14 @@ public class Main {
 		//*start from user profile*
 		//new historyOrPlayNow();
 		
+		//*history frame*
+		//new PlayerHistory();
+		
 		//*start from the beginning of the game*
-		//new welcomePage();
+		new welcomePage();
 		
 		//*start from game setup*
-		new Choose().Lastframe();
+		//new Choose();
 		
 
 	}

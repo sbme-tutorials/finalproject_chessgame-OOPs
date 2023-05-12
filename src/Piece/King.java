@@ -52,6 +52,55 @@ public class King extends Piece {
         }
         return false;
     }
+    
+    
+  public static boolean CanGetKingOutofCheck(King king) {
+  // Get the army color of the king
+  Color armyColor = king.getColor();
+
+  // Simulate all possible moves of the army's pieces
+  for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+          Piece piece = tile[i][j].getPiece();
+          if (piece.getColor() == armyColor) {
+              // Check if the piece can move to get the king out of check
+              for (int x = 0; x < 8; x++) {
+                  for (int y = 0; y < 8; y++) { 
+                      if (piece.isMoveValid(x, y)) {
+                          // Try the move
+                          int pieceOldX = piece.getX();
+                          int pieceOldY = piece.getY();
+                          Color pieceOldColor = piece.getColor();
+                          Color my_color = tile[x][y].getColor();
+                          piece.setX(x);
+                          piece.setY(y);
+                          piece.setColor(null);
+                          tile[x][y].getPiece().setColor(pieceOldColor);
+
+                          // Check if the king is out of check
+                          if (!king.IsinItCheck(tile)) {
+                              // Reset the piece's position and return true
+                              piece.setX(pieceOldX);
+                              piece.setY(pieceOldY);
+                              piece.setColor(pieceOldColor);
+                              tile[x][y].getPiece().setColor(my_color);
+                              return true;
+                          }
+
+                          // Reset the piece's position
+                          piece.setX(pieceOldX);
+                          piece.setY(pieceOldY);
+                          piece.setColor(pieceOldColor);
+                          tile[x][y].getPiece().setColor(my_color);
+                      }
+                  }
+              }
+          }
+      }
+  }
+
+  return false;
+}
 
 
     //==========================================================================//

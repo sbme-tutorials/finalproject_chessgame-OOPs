@@ -7,7 +7,8 @@ import javax.swing.*;
 import log_in.Choose;
 
 public class historyOrPlayNow implements ActionListener{
-
+	
+	static Choose game;
 	//frame
 	Frame f= new Frame();
 
@@ -42,9 +43,6 @@ public class historyOrPlayNow implements ActionListener{
 		f.setVisible(true);
 	}
 
-	
-	// main class
-	//public static void main(String[] args){}
 	@Override
 	 public void actionPerformed(ActionEvent e) {
 	  
@@ -54,7 +52,10 @@ public class historyOrPlayNow implements ActionListener{
 	  }
 	  else if(e.getSource()==button2) {
 		  f.dispose();
-		  new Choose().Lastframe();
+		  game = new Choose();
 		  }
 	 }
+	public static void disp() {
+		game.dispose();
+	}
 }

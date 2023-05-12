@@ -7,10 +7,14 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class LoginPage implements ActionListener {
+	
+	static historyOrPlayNow profile;
+	
+	 static JTextField userIDField = new JTextField();
 
     Frame frame = new Frame();
     JButton loginButton = new JButton("Login");
-    static JTextField userIDField = new JTextField();
+   
     JPasswordField userPasswordField = new JPasswordField();
     JLabel userIDLabel = new JLabel("Username:");
     JLabel userPasswordLabel = new JLabel("Password:");
@@ -56,7 +60,7 @@ public class LoginPage implements ActionListener {
             if (logininfo.containsKey(userID)) {
                 if (logininfo.get(userID).equals(password)) {
                     frame.dispose();
-                    new historyOrPlayNow();
+                    profile = new historyOrPlayNow();
                 } else {
                     messageLabel.setBounds(390, 280, 110, 15);
                     messageLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -71,7 +75,6 @@ public class LoginPage implements ActionListener {
             }
         }
     }
-
     public static String getName() {
         return userIDField.getText();
     }

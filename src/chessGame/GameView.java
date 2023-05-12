@@ -3,16 +3,28 @@ package chessGame;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import Piece.Bishop;
+import Piece.Knight;
+import Piece.Pawn;
+import Piece.Piece;
+import Piece.Queen;
+import Piece.Rook;
 import log_in.Choose;
 
 import java.awt.*;
-public class GameView {
+
+public class GameView extends JFrame{
+	
+	public static String score_1 = "0", score_2 = "0";     //score black army and white army respectively
+	JLabel player1, player2;
+	static JLabel score1;
+	static JLabel score2;
 	//================================Updated====================================
 
 	static Counter timerw;
 	static Counter timerb;
 	{
-    	JLabel player1, player2, score1, score2;
+
     	Label label1, label2, label3, label4, label5, label6, label7, label8, labela, labelb, labelc, labeld, labele, labelf, labelg, labelh;
 
     	Panel panelW = new Panel();
@@ -36,22 +48,29 @@ public class GameView {
 
         
         //Aly's part
-        if(welcomePage.getUser()) 
-        	player1 = new JLabel(LoginPage.getName());
-        else 
+        if(welcomePage.getUser()) {
+        	if(Choose.getArmy()) {
+	        	player2 = new JLabel(LoginPage.getName());
+	        	player1 = new JLabel(Choose.getOppo());
+	        }
+        	else {
+        		player1 = new JLabel(LoginPage.getName());
+	        	player2 = new JLabel(Choose.getOppo());
+        	}
+        }
+        else {
         	player1 = new JLabel("Player1");
-        
+        	player2 = new JLabel("Player2");
+        }
         player1.setFont(new Font("Arial",Font.BOLD,20));
         player1.setForeground(new Color(0x57354b));
-        player2 = new JLabel("Player2");
         player2.setFont(new Font("Arial",Font.BOLD,20));
         player2.setForeground(new Color(0x57354b));
-        score1 = new JLabel("0");
-        score1.setFont(new Font("Arial",Font.BOLD,18));
+        score1 = new JLabel("Score: "+score_1);                               //score of black army
+        score1.setFont(new Font("Arial", Font.BOLD, 22));
         score1.setForeground(new Color(0x57354b));
-        score2 = new JLabel("0");
-        score2.setFont(new Font("Arial",Font.BOLD,18));
-        score2.setForeground(new Color(0x57354b));
+        score2 = new JLabel("Score: "+score_2);                               //score of white army
+        score2.setFont(new Font("Arial", Font.BOLD, 22));
         label1 = new Label("1");
         label2 = new Label("2");
         label3 = new Label("3");
@@ -112,14 +131,23 @@ public class GameView {
         
         //Mina's part
         ChessBoard chessBoard1 = new ChessBoard();
-        JPanel chessPanel = chessBoard1.getChessBoard();
+        JPanel chessPanel = chessBoard1.getChessBoard_1();
         chessPanel.setBorder(BorderFactory.createLineBorder(new Color(0x57354b)));
         chessPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
         chessPanel.setPreferredSize(new Dimension(520, 520));
-        chessPanel.setBounds(50, 65, 500, 500);
+        chessPanel.setBounds(250, 65, 500, 500);
+        JPanel eatenPanel1 = ChessBoard.getChessBoard_2();
+        eatenPanel1.setBounds(50, 65, 150, 500);
+        eatenPanel1.setBorder(BorderFactory.createLineBorder(new Color(0x57354b)));
+        eatenPanel1.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
+        JPanel eatenPanel2 = ChessBoard.getChessBoard_3();
+        eatenPanel2.setBounds(800, 65, 150, 500);
+        eatenPanel2.setBorder(BorderFactory.createLineBorder(new Color(0x57354b)));
+        eatenPanel2.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
         frame.getContentPane().add(chessPanel);
-        frame.setVisible(true);
-    }
+        frame.getContentPane().add(eatenPanel1);
+        frame.getContentPane().add(eatenPanel2);
+        frame.setVisible(true);}
 
 
         //this is a function for just the graphical interface
@@ -146,6 +174,41 @@ public class GameView {
         		return true;
             }
       }
+        public static void getScore(Piece buttonMovedTo) {                  //change score of 2 players
+            if (buttonMovedTo.getColor()==Color.WHITE){
+                if (buttonMovedTo instanceof Pawn){
+                	score_1=String.valueOf(Integer.parseInt(score_1)+ 1);
+                	score1.setText("Score: "+score_1);}
+	         else if (buttonMovedTo instanceof Knight) {
+	        	 score_1=String.valueOf(Integer.parseInt(score_1)+ 3);
+	        	 score1.setText("Score: "+score_1);}
+	         else if (buttonMovedTo instanceof Bishop) {
+	        	 score_1=String.valueOf(Integer.parseInt(score_1)+ 3);
+	        	 score1.setText("Score: "+score_1);}
+	         else if (buttonMovedTo instanceof Rook) {
+	        	 score_1=String.valueOf(Integer.parseInt(score_1)+ 5);
+	        	 score1.setText("Score: "+score_1);}
+	         else if (buttonMovedTo instanceof Queen) {
+	        	 score_1=String.valueOf(Integer.parseInt(score_1)+ 9);
+	        	 score1.setText("Score: "+score_1);}
+                }
+         else if (buttonMovedTo.getColor()==Color.BLACK) {
+        	 if (buttonMovedTo instanceof Pawn){
+        		 score_2=String.valueOf(Integer.parseInt(score_2)+ 1);
+        		 score2.setText("Score: "+score_2);}
+        	 else if (buttonMovedTo instanceof Knight) {
+        		 score_2=String.valueOf(Integer.parseInt(score_2)+ 3);
+        		 score2.setText("Score: "+score_2);}
+             else if (buttonMovedTo instanceof Bishop) {
+            	 score_2=String.valueOf(Integer.parseInt(score_2)+ 3);
+            	 score2.setText("Score: "+score_2);}
+             else if (buttonMovedTo instanceof Rook) {
+            	 score_2=String.valueOf(Integer.parseInt(score_2)+ 5);
+            	 score2.setText("Score: "+score_2);}
+             else if (buttonMovedTo instanceof Queen) {
+            	 score_2=String.valueOf(Integer.parseInt(score_2)+ 9);
+            	 score2.setText("Score: "+score_2);}}
+            } 
 }
 
 

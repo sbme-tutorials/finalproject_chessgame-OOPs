@@ -7,7 +7,10 @@ import java.text.DecimalFormat;
 import javax.swing.Timer;
 
 public class Counter{
-	boolean end = false;
+	public static boolean end = false;
+	public static String winner;
+	public static String time;
+	
 	Label label = new Label("");
     
     Timer timer; // timer object
@@ -45,7 +48,6 @@ public class Counter{
        			ddMinute = dFormat.format(min);
        			label.setText(ddMinute + ":" + ddSecond);
        		}
-
        		// exit condition
        		if(min==0 && second==0) {
        			end = true;
@@ -54,9 +56,10 @@ public class Counter{
        		if(min<0) {
                	label.setText("00:00");
        		}
-               	
+       		time = label.getText();  	
            }
        });
+        
     }
 	public void stop() {
 		timer.stop();
@@ -66,5 +69,8 @@ public class Counter{
 	}
 	public boolean getEnd() {
 		return end;
+	}
+	public static String getTime() {
+		return time;
 	}
 }

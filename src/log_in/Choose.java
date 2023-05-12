@@ -7,8 +7,18 @@ import javax.swing.*;
 
 import chessGame.Frame;
 import chessGame.GameView;
+import chessGame.LoginPage;
+import chessGame.Player;
 
-public class Choose implements ActionListener{
+public class Choose extends JFrame implements ActionListener{
+	
+	static GameView game;
+	
+	public static boolean isWhite=false;
+	
+	static JTextField opponent = new JTextField();
+
+	
 	JButton start = new JButton("Start Game");
 	JButton white = new JButton(new ImageIcon("1_deliverabless/Piece/chess (1).png"));
 	JButton black = new JButton(new ImageIcon("1_deliverabless/Piece/chess.png"));
@@ -21,8 +31,9 @@ public class Choose implements ActionListener{
 
 	Frame frame = new Frame();
 	
-    JLabel whiteText = new JLabel("white");
-    JLabel blackText = new JLabel("black");
+	JLabel opponentl = new JLabel("Enter opponent's name:");
+    JLabel whiteText = new JLabel("White");
+    JLabel blackText = new JLabel("Black");
     JLabel label1 = new JLabel("Please pick a side");
 	JLabel label2 = new JLabel("Please set a timer");
     
@@ -33,44 +44,54 @@ public class Choose implements ActionListener{
 	static boolean time10 = false;
 	static boolean time30 = false;
 	
-	public void Lastframe(){
+	public Choose(){
+		
+		
+		//opponent section
+		opponentl.setForeground(new Color(0x2f263b));
+		opponentl.setFont(new Font("Pacifico", Font.BOLD, 22));
+		opponentl.setBounds(50, 0, 550, 100);
+		opponent.setBounds(50, 70, 350, 30);
+		
+		
 		//label 1 pick a side !	
 		label1.setForeground(new Color(0x2f263b));
-		label1.setFont(new Font("Pacifico", Font.BOLD, 28));
-		label1.setBounds(50, 0, 550, 100);
+		label1.setFont(new Font("Pacifico", Font.BOLD, 22));
+		label1.setBounds(50, 90, 550, 100);
 		
 		//button1 pick white
 		
-		white.setBounds(50, 100, 100, 100);
+		white.setBounds(50, 165, 100, 100);
 		white.setBackground(Color.WHITE);
-		whiteText.setBounds(80,210,100,25);
-		whiteText.setFont(new Font("Pacifico", Font.BOLD, 18));
+		whiteText.setBounds(80,270,100,25);
+		whiteText.setFont(new Font("Pacifico", Font.BOLD, 16));
 		whiteText.setForeground(new Color(0x2f263b));
             
 		//button 2 pick black
-		black.setBounds(175, 100, 100, 100);
+		black.setBounds(175, 165, 100, 100);
 		black.setBackground(Color.WHITE);
-		
-		blackText.setBounds(200,210,100,25);
-		blackText.setFont(new Font("Pacifico", Font.BOLD, 18));
+		blackText.setBounds(200,270,100,25);
+		blackText.setFont(new Font("Pacifico", Font.BOLD, 16));
 		blackText.setForeground(new Color(0x2f263b));
 		
 		//setting a timer
 		label2.setForeground(new Color(0x2f263b));
-		label2.setFont(new Font("acifico", Font.BOLD, 28));
-		label2.setBounds(50, 300, 550, 100);
+		label2.setFont(new Font("acifico", Font.BOLD, 22));
+		label2.setBounds(50, 280, 550, 100);
 		
-		min1.setBounds(50, 400, 90, 90);
-		min3.setBounds(175, 400, 90, 90);
-		min5.setBounds(300, 400, 90, 90);
-		min10.setBounds(425, 400, 90, 90);		
-		min30.setBounds(550, 400, 90, 90);
+		min1.setBounds(50, 370, 90, 90);
+		min3.setBounds(175, 370, 90, 90);
+		min5.setBounds(300, 370, 90, 90);
+		min10.setBounds(425, 370, 90, 90);		
+		min30.setBounds(550, 370, 90, 90);
 		
 		min1.addActionListener(this);
 		min3.addActionListener(this);
 		min5.addActionListener(this);
 		min10.addActionListener(this);
 		min30.addActionListener(this);
+		white.addActionListener(this);
+		black.addActionListener(this);
 		
 		//startgame button
 		start.setBounds(250, 550, 200, 50);
@@ -86,16 +107,23 @@ public class Choose implements ActionListener{
 		frame.add(label2);
 		frame.add(white);
 		frame.add(black);
+		frame.add(opponentl);
+		frame.add(opponent);
 		frame.add(start);
 		frame.add(min1);
 		frame.add(min5);
 		frame.add(min3);
 		frame.add(min10);
 		frame.add(min30);
-		//frame.pack();
 		frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==white) {
+			isWhite = true;
+		}
+		if(e.getSource()==black) {
+			isWhite = false;
+		}
     	if(e.getSource()==min1) {
     		time1 = true;
     		time3 = false;
@@ -160,7 +188,7 @@ public class Choose implements ActionListener{
 		
 		if(e.getSource()==start) {
     		frame.dispose();
-    		new GameView();
+    	    game = new GameView();
     	}
     
 	}
@@ -171,5 +199,19 @@ public class Choose implements ActionListener{
 		else if(time10) return 10;
 		else if(time30) return 30;
 		return 0;
+	}
+	public static String getOppo() {
+		return opponent.getText();
+	}
+	public static boolean getArmy() {
+		return isWhite;
+	}
+	public static String getColor() {
+		if(isWhite)
+			return "White";
+		return "Black";
+	}
+	public static JFrame getFrame() {
+		return game;
 	}
 }
