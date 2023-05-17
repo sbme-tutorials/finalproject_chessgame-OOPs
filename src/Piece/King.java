@@ -24,16 +24,8 @@ public class King extends Piece {
         boolean check1 = (diff1 == 0 && diff2 == 1);
         boolean check2 = (diff2 == 0 && diff1 == 1);
         boolean check3 = (diff2 == 1 && diff1 == 1);
-        
-        // remember to add another check to avoid kings being next to each other
 
-        if ((check1 || check2 || check3 || this.canCastle(newX,newY))) {
-
-            return true;
-        }
-
-        else
-            return false;
+        return check1 || check2 || check3 || this.canCastle(newX, newY);
 
     }
     public boolean IsinItCheck(Square[][] tile) {//this function checks if any piece can check the king
@@ -52,8 +44,6 @@ public class King extends Piece {
         }
         return false;
     }
-    
-    
   public static boolean CanGetKingOutofCheck(King king) {
   // Get the army color of the king
   Color armyColor = king.getColor();
@@ -67,43 +57,52 @@ public class King extends Piece {
               for (int x = 0; x < 8; x++) {
                   for (int y = 0; y < 8; y++) { 
                       if (piece.isMoveValid(x, y)) {
-                          // Try the move
-                          int pieceOldX = piece.getX();
-                          int pieceOldY = piece.getY();
-                          Color pieceOldColor = piece.getColor();
-                          Color my_color = tile[x][y].getColor();
-                          piece.setX(x);
-                          piece.setY(y);
-                          piece.setColor(null);
-                          tile[x][y].getPiece().setColor(pieceOldColor);
-
-                          // Check if the king is out of check
-                          if (!king.IsinItCheck(tile)) {
-                              // Reset the piece's position and return true
-                              piece.setX(pieceOldX);
-                              piece.setY(pieceOldY);
-                              piece.setColor(pieceOldColor);
-                              tile[x][y].getPiece().setColor(my_color);
                               return true;
                           }
-
-                          // Reset the piece's position
-                          piece.setX(pieceOldX);
-                          piece.setY(pieceOldY);
-                          piece.setColor(pieceOldColor);
-                          tile[x][y].getPiece().setColor(my_color);
                       }
                   }
               }
           }
       }
-  }
 
   return false;
 }
 
+    public boolean canCastle (int newX,int newY) {
+        if (this instanceof King) {
+            if (tile[newX][newY].getPiece() instanceof Rook) {
+                if (this.getisMoved() == false && tile[newX][newY].getPiece().getisMoved() == false) {
+                    int oldKingX = this.getX();
+                    int oldKingY = this.getY();
+                    int oldRookX = newX;
+                    int oldRookY = newY;
+                    if (oldKingX == oldRookX) {
+                        int sign = Integer.signum(newY - this.getY());
+                        boolean pathClear = true;
 
-    //==========================================================================//
+
+                        // Check if the squares between the king and the rook are empty
+                        for (int j = oldKingY + sign; j != oldRookY; j += sign) {
+                            if (tile[oldKingX][j].getPiece().getColor() != null) {
+                                pathClear = false;
+                                break;
+                            }
+                        }
+
+                        // If the path is clear, move the king and rook
+                        if (pathClear) {
+                            System.out.println("im here");
+                            return true;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return false;
+
+    }
 
     @Override
     public String get_icon(Color color){

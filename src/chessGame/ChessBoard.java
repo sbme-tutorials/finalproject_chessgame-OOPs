@@ -1,34 +1,34 @@
 package chessGame;
+
 import Piece.*;
-import static Piece.King.CanGetKingOutofCheck;
 import log_in.Choose;
+import log_in.Player;
+import log_in.welcomePage;
 
 import javax.swing.*;
-import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ChessBoard {
-	
+import static Piece.King.CanGetKingOutofCheck;
+import static Piece.Pawn.promotion;
+import static chessGame.Square.*;
+public class ChessBoard
+{
 	public static String winner;
 	public static boolean endgame = false;
 	public static String status;
 	public JPanel chessBoard;
-	public static JPanel eatenPiecesWhite;
-	public static JPanel eatenPiecesBlack;
+	public static JPanel eatenPiecesWhite , eatenPiecesBlack;
     public static Square[][] tile = new Square[8][8];
     public static Square[][] tile_1 = new Square[8][8];        //tiles of white eaten pieces
     public static Square[][] tile_2 = new Square[8][8];        //tiles of black eaten pieces
     Piece p = null;
     Square fromButton = null, toButton = null;
-    private boolean isWhiteTurn = true;
+    public static boolean isWhiteTurn = true;
     public static King blackKing = new King(Color.BLACK, 0, 4);
     public static King whiteKing = new King(Color.WHITE, 7, 4);
-    public static Rook BlackRightRook =new Rook(Color.BLACK, 0, 7);
-    public static Rook BlackLeftRook =new Rook(Color.BLACK, 0, 0);
-    public static Rook WhiteRightRook =new Rook(Color.WHITE, 7, 7);
-    public static Rook WhiteLeftRook =new Rook(Color.white, 7, 0);
+
 
     public ChessBoard() {
     	createEatenBoard();
@@ -55,13 +55,19 @@ public class ChessBoard {
         // Create the chessboard panel with a GridLayout
         eatenPiecesWhite = new JPanel(new GridLayout(8, 2));
         eatenPiecesBlack = new JPanel(new GridLayout(8, 2));
+        eatenPiecesBlack.setOpaque(false);
+        eatenPiecesWhite.setOpaque(false);
         // 16 tiles of class square which is extended from JPanel
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 2; j++) {
                 tile_1[i][j] = new Square(i, j, null);
                 tile_2[i][j] = new Square( i, j, null);
-                eatenPiecesBlack.add(tile_1[i][j]).setBackground(new Color(0xecd5d0));
-                eatenPiecesWhite.add(tile_2[i][j]).setBackground(new Color(0xecd5d0));
+                eatenPiecesBlack.add(tile_1[i][j]);
+                eatenPiecesWhite.add(tile_2[i][j]);
+               tile_1[i][j].setOpaque(false);
+                tile_1[i][j].setContentAreaFilled(false);
+                tile_2[i][j].setOpaque(false);
+                tile_2[i][j].setContentAreaFilled(false);
             }
         }
     }
@@ -88,10 +94,10 @@ public class ChessBoard {
 
                     }
                 }
-                //=====================================================================================================================//
-                //second click
+                //===============================================   second click    ====================================//
+
                 else {
-                    //========================================    DESELECT   ====================================================//
+                    //========================================    DESELECT   ===========================================//
                     if(clickedButton ==fromButton)
                     {
                         fromButton=null;
@@ -107,27 +113,26 @@ public class ChessBoard {
                             //==========================================
                             toButton = clickedButton;
                             //==========================================
-                            boolean isItValid = fromButton.getPiece().isMoveValid(toButton.getMyX(), toButton.getMyY());
-                            if (isItValid)
+                            boolean isMoveValid = fromButton.getPiece().isMoveValid(toButton.getMyX(), toButton.getMyY());
+                            if (isMoveValid)
                             {
                                 resetBackground();
 
                                 //======================================== 
                                 // check if the move is for promotion or not
-                                if(Pawn.getPromotion()&&(fromButton.getMyX()==1||fromButton.getMyX()==6)) {
-                                	promotion(fromButton,toButton);
-                                	Pawn.setPromotion(false);
-                                	}
-//                                else if(Pawn.getPassent()) {
-//                                	enPassent(fromButton,toButton);
-//                                	Pawn.setPassent(false);
-//                                }
+                                if(Pawn.getPromotion()&&
+                                        (fromButton.getMyX()==1&&fromButton.getColor()==Color.white
+                                                ||fromButton.getMyX()==6&&fromButton.getColor()==Color.black)
+                                        &&fromButton.getPiece() instanceof Pawn) {
+                                    promotion(fromButton,toButton);
+                                    Pawn.setPromotion(false);
+                  	}
                                 else
                                 	movePiece(fromButton, toButton);
 
                                 //========================================  end Game   ===================================//
                                 
-                                if (whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing)||GameView.timerw.getEnd()){
+                                if ((whiteKing.IsinItCheck(tile) && !CanGetKingOutofCheck(whiteKing) )||GameView.timerw.getEnd()){
                                     //System.out.println("GAME OVER BLACK WINS");
                                     disableAllSquares();
                                     GameView.timerb.stop();
@@ -138,7 +143,7 @@ public class ChessBoard {
                                     status = Choose.getOppo()+","+Choose.getColor()+","+"Black"+","+Counter.getTime();
                                     Player.WriteToFile(status);}
                                     }
-                                if (blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)||GameView.timerb.getEnd()){
+                                 if ((blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing))||GameView.timerb.getEnd()){
                                     //System.out.println("GAME OVER White WINS");
                                     GameView.timerw.stop();
                                     disableAllSquares();
@@ -161,7 +166,7 @@ public class ChessBoard {
 	                                status = Choose.getOppo()+","+Choose.getColor()+","+"Draw"+","+Counter.getTime();
 	                                Player.WriteToFile(status);}
                                 }
-                                if (!blackKing.IsinItCheck(tile) && !King.CanGetKingOutofCheck(blackKing)){
+                                if (!blackKing.IsinItCheck(tile) && !CanGetKingOutofCheck(blackKing)){
                                     //System.out.println("GAME OVER STALEMATE");
 	                                disableAllSquares();
 	                                GameView.timerw.stop();
@@ -225,44 +230,7 @@ public class ChessBoard {
             }
         });
     }
-    
-   
-    
-    void showPieces() {
-        // Black Pieces
 
-        tile[0][0].setPiece(BlackLeftRook);
-        tile[0][1].setPiece(new Knight(Color.BLACK, 0, 1));
-        tile[0][2].setPiece(new Bishop(Color.BLACK, 0, 2));
-        tile[0][3].setPiece(new Queen(Color.BLACK, 0, 3));
-        tile[0][4].setPiece(blackKing);
-        tile[0][5].setPiece(new Bishop(Color.BLACK, 0, 5));
-        tile[0][6].setPiece(new Knight(Color.BLACK, 0, 6));
-        tile[0][7].setPiece(BlackRightRook);
-        for (int j = 0; j < 8; j++) {
-            tile[1][j].setPiece(new Pawn(Color.BLACK, 1, j));
-        }
-
-        // White Pieces
-        tile[7][0].setPiece(WhiteLeftRook);
-        tile[7][1].setPiece(new Knight(Color.WHITE, 7, 1));
-        tile[7][2].setPiece(new Bishop(Color.WHITE, 7, 2));
-        tile[7][3].setPiece(new Queen(Color.WHITE, 7, 3));
-        tile[7][4].setPiece(whiteKing);
-        tile[7][5].setPiece(new Bishop(Color.WHITE, 7, 5));
-        tile[7][6].setPiece(new Knight(Color.WHITE, 7, 6));
-        tile[7][7].setPiece(WhiteRightRook);
-        for (int j = 0; j < 8; j++) {
-            tile[6][j].setPiece(new Pawn(Color.WHITE, 6, j));
-        }
-
-        // Set other squares to no Piece
-        for (int i = 2; i < 6; i++) {
-            for (int j = 0; j < 8; j++) {
-                tile[i][j].setPiece(new Null(null, i, j));
-            }
-        }
-    }
 
     //=====================================================================================================================//
     public void movePiece(Square fromButton, Square toButton) {
@@ -273,6 +241,7 @@ public class ChessBoard {
             toButton.setPiece(fromButton.getPiece());
             Null noPiece = new Null(null, fromButton.getX(), fromButton.getY());  //generic null piece, this i equivalent to removing the piece from the
             //original square
+            toButton.getPiece().setMoved(true);
             fromButton.setPiece(noPiece);
             if (takenPiece.getColor()==Color.white) {
             	rowsLoop: for (int i = 0; i < 8; i++) {  //displaying eaten pieces
@@ -300,7 +269,6 @@ public class ChessBoard {
     public void Castling (Piece king , Piece rook) {
         if (king.getisMoved() == false && rook.getisMoved() == false) {
 
-
             // in casteling they re on the same horizontal level , they have same x
             int oldKingX = king.getX();
             int oldKingY = king.getY();
@@ -315,6 +283,7 @@ public class ChessBoard {
                     tile[oldKingX][oldKingY].setPiece(new Null(null, oldKingX, oldKingY));
                     tile[oldRookX][oldRookY - 2 * sign].setPiece(rook);
                     tile[oldRookX][oldRookY].setPiece(new Null(null, oldRookX, oldRookY));
+                    tile[oldKingX][oldKingY + 2 * sign].getPiece().setMoved(true);
                 }
                  else isWhiteTurn = !isWhiteTurn;
             }
@@ -325,6 +294,7 @@ public class ChessBoard {
                         tile[oldKingX][oldKingY].setPiece(new Null(null, oldKingX, oldKingY));
                         tile[oldRookX][oldRookY - 3 * sign].setPiece(rook);
                         tile[oldRookX][oldRookY].setPiece(new Null(null, oldRookX, oldRookY));
+                        tile[oldKingX][oldKingY + 2 * sign].getPiece().setMoved(true);
                     }
                 }
                else  isWhiteTurn = !isWhiteTurn;
@@ -333,94 +303,6 @@ public class ChessBoard {
             }
         }
 
-
-    //=======================================     Color      =================================================================//
-    public void resetBackground() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if ((i + j) % 2 != 0) {
-                    tile[i][j].setBackground(new java.awt.Color(0x57354b));
-                } else {
-                    tile[i][j].setBackground(new java.awt.Color(0xedc3bb));
-
-                }
-            }
-
-        }   
-     }
-
-    void ValidBackgrounds(int i, int j, Piece orginalPiece) {
-       if (orginalPiece.isMoveValid(i, j)){
-            if (fromButton.getColor() != tile[i][j].getColor()) {
-                tile[i][j].setBackground(Color.green);
-                tile[i][j].repaint();
-            }
-            else{
-                tile[i][j].setBackground(Color.red);
-                tile[i][j].repaint();
-            }
-
-            }
-
-    }
-    //======================================================================================================================//
-    private void disableAllSquares() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                tile[i][j].setEnabled(false);
-            }
-        }
-    }
-
-    //=================================================================//
-//    public boolean CanGetKingOutofCheck(King king) {
-//        // Get the army color of the king
-//        Color armyColor = king.getColor();
-//
-//        // Simulate all possible moves of the army's pieces
-//        for (int i = 0; i < 8; i++) {
-//            for (int j = 0; j < 8; j++) {
-//                Piece piece = tile[i][j].getPiece();
-//                if (piece.getColor() == armyColor) {
-//                    // Check if the piece can move to get the king out of check
-//                    for (int x = 0; x < 8; x++) {
-//                        for (int y = 0; y < 8; y++) { 
-//                            if (piece.isMoveValid(x, y)) {
-//                                // Try the move
-//                                int pieceOldX = piece.getX();
-//                                int pieceOldY = piece.getY();
-//                                Color pieceOldColor = piece.getColor();
-//                                Color my_color = tile[x][y].getColor();
-//                                piece.setX(x);
-//                                piece.setY(y);
-//                                piece.setColor(null);
-//                                tile[x][y].getPiece().setColor(pieceOldColor);
-//
-//                                // Check if the king is out of check
-//                                if (!king.IsinItCheck(tile)) {
-//                                    // Reset the piece's position and return true
-//                                    piece.setX(pieceOldX);
-//                                    piece.setY(pieceOldY);
-//                                    piece.setColor(pieceOldColor);
-//                                    tile[x][y].getPiece().setColor(my_color);
-//                                    return true;
-//                                }
-//
-//                                // Reset the piece's position
-//                                piece.setX(pieceOldX);
-//                                piece.setY(pieceOldY);
-//                                piece.setColor(pieceOldColor);
-//                                tile[x][y].getPiece().setColor(my_color);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        return false;
-//    }
-    
     //========================================================================//
     public boolean Stalemate() {
         int sum = 0;
@@ -447,73 +329,6 @@ public class ChessBoard {
         return false;
 
     }
-
-    
-    //==============================================Promotion===========================================================//
-    private void promotion(Square fromButton, Square toButton) {
-    	ImageIcon logo = new ImageIcon("1_deliverabless/Pro1.PNG");
-    	Null noPiece = new Null(null, fromButton.getX(), fromButton.getY());
-        Object[] options = {"Queen", "Rook", "Bishop", "Knight"};
-        int choice = JOptionPane.showOptionDialog(
-            null, "Congratulations, You are promoted!", "Promotion",
-            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, logo,
-            options, options[3]);
-        if(fromButton.getMyX()==6)
-        switch (choice) {
-            case 0:
-                toButton.setPiece(new Queen(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
-                fromButton.setPiece(noPiece);
-                break;
-            case 1:
-            	toButton.setPiece(new Rook(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
-                fromButton.setPiece(noPiece);
-                break;
-            case 2:
-            	toButton.setPiece(new Bishop(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
-                fromButton.setPiece(noPiece);
-                break;
-            case 3:
-            	toButton.setPiece(new Knight(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
-                fromButton.setPiece(noPiece);
-                break;
-            default:
-            	isWhiteTurn = !isWhiteTurn;
-            	break;
-        	}
-        else if(fromButton.getMyX()==1)
-        	switch (choice) {
-            case 0:
-                toButton.setPiece(new Queen(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
-                fromButton.setPiece(noPiece);
-                break;
-            case 1:
-            	toButton.setPiece(new Rook(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
-                fromButton.setPiece(noPiece);
-                break;
-            case 2:
-            	toButton.setPiece(new Bishop(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
-                fromButton.setPiece(noPiece);
-                break;
-            case 3:
-            	toButton.setPiece(new Knight(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
-                fromButton.setPiece(noPiece);
-                break;
-            default:
-            	isWhiteTurn = !isWhiteTurn;
-            	break;
-        	}
-    }
-    //============================================= en passent ====================================================================
-    private void enPassent(Square fromButton, Square toButton) {
-    	int dx = Integer.signum(toButton.getMyX()-fromButton.getMyX());
-    	int dy = Integer.signum(toButton.getMyY()-fromButton.getMyY());
-    	Null noPiece = new Null(null, fromButton.getMyX(), fromButton.getMyY());
-    	toButton.setPiece(fromButton.getPiece());
-    	fromButton.setPiece(noPiece);
-    	tile[fromButton.getMyX()][fromButton.getMyY()+dy].setPiece(new Null(null, fromButton.getMyX()+dx, fromButton.getMyY()+dy));
-    	
-    }
-    
     public JPanel getChessBoard_1() {
         return chessBoard;
     }
@@ -523,6 +338,11 @@ public class ChessBoard {
     public static JPanel getChessBoard_3() {
         return eatenPiecesBlack;
     }
+
+    public static void setWinner(String winner) {
+        ChessBoard.winner = winner;
+    }
+
     public static boolean getEnd() {
     	return endgame;
     }

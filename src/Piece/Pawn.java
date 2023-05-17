@@ -1,8 +1,13 @@
 
 package Piece;
 
-import static chessGame.ChessBoard.tile;
+import chessGame.GameView;
+import chessGame.Square;
+
+import javax.swing.*;
 import java.awt.*;
+
+import static chessGame.ChessBoard.*;
 
 
 public class Pawn extends Piece {
@@ -71,6 +76,85 @@ public class Pawn extends Piece {
         }
         return false;
     }
+    //==============================================Promotion===========================================================//
+    public static void promotion(Square fromButton, Square toButton) {
+        boolean promoted = true;
+        Piece takenPiece = toButton.getPiece();
+        ImageIcon logo = new ImageIcon("1_deliverabless/Pro1.PNG");
+        Null noPiece = new Null(null, fromButton.getX(), fromButton.getY());
+        Object[] options = {"Queen", "Rook", "Bishop", "Knight"};
+        int choice = JOptionPane.showOptionDialog(
+                null, "Congratulations, You are promoted!", "Promotion",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, logo,
+                options, options[3]);
+        if(fromButton.getMyX()==6)
+            switch (choice) {
+                case 0:
+                    toButton.setPiece(new Queen(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
+                    fromButton.setPiece(noPiece);
+                    break;
+                case 1:
+                    toButton.setPiece(new Rook(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
+                    fromButton.setPiece(noPiece);
+                    break;
+                case 2:
+                    toButton.setPiece(new Bishop(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
+                    fromButton.setPiece(noPiece);
+                    break;
+                case 3:
+                    toButton.setPiece(new Knight(Color.BLACK, toButton.getMyX(), toButton.getMyY()));
+                    fromButton.setPiece(noPiece);
+                    break;
+                default:
+                    isWhiteTurn = !isWhiteTurn;
+                    promoted = false;
+                    break;
+            }
+        else if(fromButton.getMyX()==1)
+            switch (choice) {
+                case 0:
+                    toButton.setPiece(new Queen(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
+                    fromButton.setPiece(noPiece);
+                    break;
+                case 1:
+                    toButton.setPiece(new Rook(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
+                    fromButton.setPiece(noPiece);
+                    break;
+                case 2:
+                    toButton.setPiece(new Bishop(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
+                    fromButton.setPiece(noPiece);
+                    break;
+                case 3:
+                    toButton.setPiece(new Knight(Color.WHITE, toButton.getMyX(), toButton.getMyY()));
+                    fromButton.setPiece(noPiece);
+                    break;
+                default:
+                    isWhiteTurn = !isWhiteTurn;
+                    promoted = false;
+                    break;
+            }
+        GameView.getScore(takenPiece);
+        if (takenPiece.getColor()==Color.white&&promoted) {
+            rowsLoop: for (int i = 0; i < 8; i++) {  //displaying eaten pieces
+                for (int j = 0; j < 2; j++) {
+                    if (tile_1[i][j].getPiece() == null){
+                        tile_1[i][j].setPiece(takenPiece);
+                        break rowsLoop;
+                    }
+                }
+            }
+        }
+        else if (takenPiece.getColor()==Color.black&&promoted) {
+            rowsLoop:
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 2; j++) {
+                    if (tile_2[i][j].getPiece() == null) {
+                        tile_2[i][j].setPiece(takenPiece);
+                        break rowsLoop;
+                    }
+                }
+            }
+        }}
 
     @Override
     public String get_icon(Color color){
@@ -89,10 +173,10 @@ public class Pawn extends Piece {
 		Pawn.isPromoted = state;
 		
 	}
-	public static boolean getPassent() {
+	public  boolean getPassent() {
 		return enPassent;
 	}
-	public static void setPassent(boolean state) {
+	public  void setPassent(boolean state) {
 		Pawn.enPassent = state;
 		
 	}

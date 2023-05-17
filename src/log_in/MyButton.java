@@ -7,6 +7,8 @@ import java.awt.*;
 public class MyButton extends JButton {
     public MyButton(String label) {
         super(label);
+        this.setBackground(new Color(0xf7e8d5));
+        this.setForeground(new Color(0x6d1e00));
 
         // Set the preferred size of the button to be a square with a width and height of 50 pixels
         setPreferredSize(new Dimension(100, 100));
@@ -32,7 +34,7 @@ public class MyButton extends JButton {
         // Draw the button border
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke(4));
-        g2.setColor(new Color(0x57354b));
+        g2.setColor(new Color(0x6d1e00));
         g2.drawOval(1, 1, getWidth()-3, getHeight()-3);
     }
 }

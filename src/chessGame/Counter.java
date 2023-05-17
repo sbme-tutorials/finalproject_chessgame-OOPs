@@ -1,10 +1,10 @@
 package chessGame;
 
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import javax.swing.Timer;
 
 public class Counter{
 	public static boolean end = false;
@@ -22,8 +22,12 @@ public class Counter{
 	String ddMinute;
     //to change counter format from 0:0 to 00:00
     DecimalFormat dFormat = new DecimalFormat("00");
-    
-    public Counter(int minute) {
+
+	public static void setTime(String time) {
+		Counter.time = time;
+	}
+
+	public Counter(int minute) {
         label.setFont(new Font("Arial",Font.BOLD,24));
         ddMinute = dFormat.format(minute);
         label.setText(minute+":00");

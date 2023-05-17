@@ -1,27 +1,23 @@
-package log_in; 
+package log_in;
+
+import chessGame.Frame;
+import chessGame.GameView;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
-
-import chessGame.Frame;
-import chessGame.GameView;
-import chessGame.LoginPage;
-import chessGame.Player;
-
-public class Choose extends JFrame implements ActionListener{
-	
+public class Choose extends JFrame implements ActionListener
+{
 	static GameView game;
-	
 	public static boolean isWhite=false;
-	
-	static JTextField opponent = new JTextField();
+	static RoundedTextField opponent = new RoundedTextField(30);
 
 	
-	JButton start = new JButton("Start Game");
-	JButton white = new JButton(new ImageIcon("1_deliverabless/Piece/chess (1).png"));
-	JButton black = new JButton(new ImageIcon("1_deliverabless/Piece/chess.png"));
+	RoundBorderButton start = new RoundBorderButton("Start Game");
+	JButton white = new JButton(new ImageIcon("1_deliverabless/whiteKing.png"));
+	JButton black = new JButton(new ImageIcon("1_deliverabless/blackKing.png"));
 	
 	MyButton min1 = new MyButton("01:00 min");
 	MyButton min3 = new MyButton("03:00 min");
@@ -29,7 +25,7 @@ public class Choose extends JFrame implements ActionListener{
 	MyButton min10 = new MyButton("10:00 min");
 	MyButton min30 = new MyButton("30:00 min");
 
-	Frame frame = new Frame();
+	chessGame.Frame frame = new Frame();
 	
 	JLabel opponentl = new JLabel("Enter opponent's name:");
     JLabel whiteText = new JLabel("White");
@@ -48,14 +44,14 @@ public class Choose extends JFrame implements ActionListener{
 		
 		
 		//opponent section
-		opponentl.setForeground(new Color(0x2f263b));
+		opponentl.setForeground(new Color(0x6d1e00));
 		opponentl.setFont(new Font("Pacifico", Font.BOLD, 22));
 		opponentl.setBounds(50, 0, 550, 100);
 		opponent.setBounds(50, 70, 350, 30);
 		
 		
 		//label 1 pick a side !	
-		label1.setForeground(new Color(0x2f263b));
+		label1.setForeground(new Color(0x6d1e00));
 		label1.setFont(new Font("Pacifico", Font.BOLD, 22));
 		label1.setBounds(50, 90, 550, 100);
 		
@@ -65,17 +61,17 @@ public class Choose extends JFrame implements ActionListener{
 		white.setBackground(Color.WHITE);
 		whiteText.setBounds(80,270,100,25);
 		whiteText.setFont(new Font("Pacifico", Font.BOLD, 16));
-		whiteText.setForeground(new Color(0x2f263b));
+		whiteText.setForeground(new Color(0x6d1e00));
             
 		//button 2 pick black
-		black.setBounds(175, 165, 100, 100);
+		black.setBounds(150, 165, 100, 100);
 		black.setBackground(Color.WHITE);
-		blackText.setBounds(200,270,100,25);
+		blackText.setBounds(175,270,100,25);
 		blackText.setFont(new Font("Pacifico", Font.BOLD, 16));
-		blackText.setForeground(new Color(0x2f263b));
+		blackText.setForeground(new Color(0x6d1e00));
 		
 		//setting a timer
-		label2.setForeground(new Color(0x2f263b));
+		label2.setForeground(new Color(0x6d1e00));
 		label2.setFont(new Font("acifico", Font.BOLD, 22));
 		label2.setBounds(50, 280, 550, 100);
 		
@@ -94,12 +90,16 @@ public class Choose extends JFrame implements ActionListener{
 		black.addActionListener(this);
 		
 		//startgame button
-		start.setBounds(250, 550, 200, 50);
-		start.setBackground(new Color(0x57354b));
+		start.setBounds(450, 550, 400, 50);
+		start.setBackground(new Color(0x227423));
 		start.setForeground(Color.WHITE);
 		start.setFont(new Font("Arial", Font.BOLD, 22));
 		start.setFocusable(false);
         start.addActionListener(this);
+
+		ImageIcon icon = new ImageIcon("1_deliverabless/handInverted.png");
+		JLabel imageLabel = new JLabel(icon);
+		imageLabel.setBounds(0, 0,1060, 668);
 		
 		frame.add(label1);
 		frame.add(whiteText);
@@ -115,6 +115,7 @@ public class Choose extends JFrame implements ActionListener{
 		frame.add(min3);
 		frame.add(min10);
 		frame.add(min30);
+		frame.add(imageLabel);
 		frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {
