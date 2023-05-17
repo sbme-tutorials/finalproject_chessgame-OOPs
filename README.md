@@ -14,8 +14,8 @@ The game consists of different objects representing the chessboard, pieces, play
 4- Abstraction: Abstraction is employed to hide the complexity of the game's internal workings and expose only the necessary interfaces to interact with the game. Users can interact with the game through high-level methods like movePiece() or isCheckmate() without needing to understand the underlying implementation details.
 
 Here is the GUI:
-![main page](1_deliverabless/GUII/WhatsApp Image 2023-05-17 at 11.19.53 PM.jpeg)
-![board](1_deliverabless/GUII/WhatsApp Image 2023-05-17 at 11.20.44 PM.jpeg)
+image src = 1_deliverabless/GUII/WhatsApp Image 2023-05-17 at 11.19.53 PM.jpeg
+image src = 1_deliverabless/GUII/WhatsApp Image 2023-05-17 at 11.20.44 PM.jpeg
 
 
 ##Game features:
