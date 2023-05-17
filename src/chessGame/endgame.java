@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 
 public class endgame implements ActionListener {
 	// frame
-
 	Frame f = new Frame();
 	// label to display text
 	JLabel l= new JLabel();
@@ -39,6 +38,7 @@ public class endgame implements ActionListener {
 		ChessBoard.setWinner(null);
 		GameView.setScore_1("0");
 		GameView.setScore_2("0");
+
 		l.setBounds(80, 80, 300, 30); //Setting the bounds of the label.
 		l.setFont(new Font("Arial", Font.PLAIN, 22));
 		ImageIcon icon = new ImageIcon("1_deliverabless/endGame.png");
@@ -59,6 +59,7 @@ public class endgame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if(e.getSource()==back) {
 			f.dispose();
 			if(welcomePage.getUser()) {
@@ -71,13 +72,18 @@ public class endgame implements ActionListener {
 			}
 		}
 		else if(e.getSource()==newGame) {
+			java.awt.Frame[] frames =  GameView.getFrames();
+
+			// Dispose of frames using a for loop
+			for (java.awt.Frame frame : frames) {
+				frame.dispose();
+			}
 			f.dispose();
 			if(welcomePage.getUser()) {
 				historyOrPlayNow.disp();
 				new Choose();
 			}
 			else {
-				welcomePage.disp();
 				new GameView();
 			}
 		}

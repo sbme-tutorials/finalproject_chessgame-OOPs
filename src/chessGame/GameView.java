@@ -11,21 +11,19 @@ import java.awt.*;
 public class GameView extends JFrame
 {
 	public static String score_1 = "0", score_2 = "0"; //score black army and white army respectively
-	JLabel player1, player2;
+
+    JLabel player1, player2;
 	static JLabel score1,score2;
 	static Counter timerw , timerb;
     public  Frame frame = new Frame();
 
     {
-
     	Panel panelW = new Panel();
     	Panel panelB = new Panel();
     	
     	panelW.setBounds(270, 580, 460, 40);
         panelB.setBounds(270, 15, 460, 40);
-    	
 
-        
         timerw = new Counter(Choose.getTimer());
         timerb = new Counter(Choose.getTimer());
         
@@ -108,11 +106,9 @@ public class GameView extends JFrame
         frame.add(panelB);
         frame.add(panelW);
 
-
         ImageIcon icon = new ImageIcon("1_deliverabless/Pieces.png");
         JLabel imageLabel = new JLabel(icon);
         imageLabel.setBounds(0, 0,1060, 668);
-
 
         ChessBoard chessBoard1 = new ChessBoard();
         JPanel chessPanel = chessBoard1.getChessBoard_1();
@@ -121,20 +117,15 @@ public class GameView extends JFrame
         chessPanel.setPreferredSize(new Dimension(520, 520));
         chessPanel.setBounds(250, 65, 500, 500);
 
-
         JPanel eatenPanel1 = ChessBoard.getChessBoard_2();
         eatenPanel1.setBounds(50, 65, 150, 500);
         eatenPanel1.setBorder(BorderFactory.createLineBorder(new Color(0x57354b)));
         eatenPanel1.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
 
-
         JPanel eatenPanel2 = ChessBoard.getChessBoard_3();
         eatenPanel2.setBounds(800, 65, 150, 500);
         eatenPanel2.setBorder(BorderFactory.createLineBorder(new Color(0x57354b)));
         eatenPanel2.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
-
-
-
 
         frame.getContentPane().add(chessPanel);
         frame.getContentPane().add(eatenPanel1);
@@ -184,12 +175,9 @@ public class GameView extends JFrame
     public static void setScore_1(String score_1) {
         GameView.score_1 = score_1;
     }
-
     public static void setScore_2(String score_2) {
         GameView.score_2 = score_2;
     }
-
-
 
 }
 

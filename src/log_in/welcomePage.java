@@ -18,13 +18,9 @@ public class welcomePage implements ActionListener {
 	JLabel l = new JLabel();
 	RoundBorderButton button1 = new RoundBorderButton("Log In");
 	RoundBorderButton button2 = new RoundBorderButton("Quick Game");
-
 	// create a panel
 	JPanel p = new JPanel();
-
 	// add label to panel
-
-
 	// default constructor
 	public welcomePage() {
 		l.setText("Welcome           chessmaster");
@@ -35,16 +31,12 @@ public class welcomePage implements ActionListener {
 		button1.addActionListener(this);
 		button1.setBounds(190, 510, 150, 40);
 
-
-
 		button2.addActionListener(this);
 		button2.setBounds(700, 510, 150, 40);
-
 
 		ImageIcon icon = new ImageIcon("1_deliverabless/KingInverted.png");
 		JLabel imageLabel = new JLabel(icon);
 		imageLabel.setBounds(0, 0,1060, 668);
-
 
 		f.add(l);
 		f.add(button1);

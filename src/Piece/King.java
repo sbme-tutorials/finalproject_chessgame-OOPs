@@ -47,7 +47,6 @@ public class King extends Piece {
   public static boolean CanGetKingOutofCheck(King king) {
   // Get the army color of the king
   Color armyColor = king.getColor();
-
   // Simulate all possible moves of the army's pieces
   for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
@@ -67,43 +66,6 @@ public class King extends Piece {
 
   return false;
 }
-
-    public boolean canCastle (int newX,int newY) {
-        if (this instanceof King) {
-            if (tile[newX][newY].getPiece() instanceof Rook) {
-                if (this.getisMoved() == false && tile[newX][newY].getPiece().getisMoved() == false) {
-                    int oldKingX = this.getX();
-                    int oldKingY = this.getY();
-                    int oldRookX = newX;
-                    int oldRookY = newY;
-                    if (oldKingX == oldRookX) {
-                        int sign = Integer.signum(newY - this.getY());
-                        boolean pathClear = true;
-
-
-                        // Check if the squares between the king and the rook are empty
-                        for (int j = oldKingY + sign; j != oldRookY; j += sign) {
-                            if (tile[oldKingX][j].getPiece().getColor() != null) {
-                                pathClear = false;
-                                break;
-                            }
-                        }
-
-                        // If the path is clear, move the king and rook
-                        if (pathClear) {
-                            System.out.println("im here");
-                            return true;
-                        }
-                    }
-                }
-
-            }
-        }
-
-        return false;
-
-    }
-
     @Override
     public String get_icon(Color color){
         if (this.color == Color.white)

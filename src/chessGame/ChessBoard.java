@@ -4,12 +4,10 @@ import Piece.*;
 import log_in.Choose;
 import log_in.Player;
 import log_in.welcomePage;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import static Piece.King.CanGetKingOutofCheck;
 import static Piece.Pawn.promotion;
 import static chessGame.Square.*;
@@ -21,8 +19,8 @@ public class ChessBoard
 	public JPanel chessBoard;
 	public static JPanel eatenPiecesWhite , eatenPiecesBlack;
     public static Square[][] tile = new Square[8][8];
-    public static Square[][] tile_1 = new Square[8][8];        //tiles of white eaten pieces
-    public static Square[][] tile_2 = new Square[8][8];        //tiles of black eaten pieces
+    public static Square[][] tile_1 = new Square[8][2];        //tiles of white eaten pieces
+    public static Square[][] tile_2 = new Square[8][2];        //tiles of black eaten pieces
     Piece p = null;
     Square fromButton = null, toButton = null;
     public static boolean isWhiteTurn = true;
@@ -230,8 +228,6 @@ public class ChessBoard
             }
         });
     }
-
-
     //=====================================================================================================================//
     public void movePiece(Square fromButton, Square toButton) {
     	Piece takenPiece = toButton.getPiece();
@@ -302,7 +298,6 @@ public class ChessBoard
 
             }
         }
-
     //========================================================================//
     public boolean Stalemate() {
         int sum = 0;
@@ -338,11 +333,9 @@ public class ChessBoard
     public static JPanel getChessBoard_3() {
         return eatenPiecesBlack;
     }
-
     public static void setWinner(String winner) {
         ChessBoard.winner = winner;
     }
-
     public static boolean getEnd() {
     	return endgame;
     }

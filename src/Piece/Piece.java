@@ -3,7 +3,6 @@ package Piece;
 import java.awt.*;
 
 import static chessGame.ChessBoard.*;
-
 public abstract class Piece
 {
     public abstract String get_icon(Color color);
@@ -21,7 +20,8 @@ public abstract class Piece
         this.color = color;
         this.x = x;
         this.y = y;
-    }public boolean isMoveValid(int newX, int newY)//should be implemented in each piece
+    }
+    public boolean isMoveValid(int newX, int newY)//should be implemented in each piece
     {
        if(isValidMove(newX,newY) && this.getColor() != tile[newX][newY].getColor())
            return !doesNewMovePutInCheck(newX,newY);
@@ -44,7 +44,6 @@ public abstract class Piece
 
             // Check if the king is in check after the move
             boolean isInCheck = whiteKing.IsinItCheck(tile);
-
 
             // Reset the Piece's position and color
             this.setX(oldX);
@@ -69,7 +68,6 @@ public abstract class Piece
             // Check if the king is in check after the move
             boolean isInCheck = blackKing.IsinItCheck(tile);
 
-
             // Reset the Piece's position and color
             this.setX(oldX);
             this.setY(oldY);
@@ -80,7 +78,6 @@ public abstract class Piece
         }
         else return false;
     }
-
     public boolean canCastle (int newX,int newY) {
         if (this instanceof King) {
             if (tile[newX][newY].getPiece() instanceof Rook) {
@@ -110,31 +107,23 @@ public abstract class Piece
 
             }
         }
-
             return false;
-
         }
-    //setters and getters
-
     public int getX() {
         return x;
     }
-
     public int getY() {
         return y;
     }
-
     public void setX(int x) {
         this.x = x;
     }
-
     public void setY(int y) {
         this.y = y;
     }
     public Color getColor() {
         return color;
     }
-
     public boolean getisMoved(){
         return isMoved;
     }
